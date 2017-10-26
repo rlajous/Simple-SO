@@ -1,0 +1,6 @@
+*.bin
+*.img
+*.qcow2
+*.vmdk
+*.o
+*.sys
