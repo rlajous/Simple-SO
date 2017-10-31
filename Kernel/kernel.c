@@ -6,6 +6,7 @@
 #include <naiveConsole.h>
 #include <idtLoader.h>
 #include <time.h>
+#include <videoDriver.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -83,10 +84,22 @@ void * initializeKernelBinary()
 	return getStackBase();
 }
 
+
 int main()
 {	
 	load_idt();
 
+	clear();
+
+	int i = 90;
+	int j = 10000000;
+	while(i--) {
+		while(j--);
+		printChar('a');
+		j = 10000000;
+	}
+
+	/*
 	ncPrint("[Kernel Main]");
 	ncNewline();
 	ncPrint("  Sample code module at 0x");
@@ -111,12 +124,13 @@ int main()
 	ncNewline();
 	setFormat();
 	printHs();
+	*/
 
-
-	ncPrintDec(ticks_elapsed());
+	//ncPrintDec(ticks_elapsed());
 
 	return 0;
 }
+
 void printHs(){
 	int minutes=getMinutes();
 	int seconds=getSeconds();
