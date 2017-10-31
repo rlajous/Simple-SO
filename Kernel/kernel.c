@@ -7,6 +7,7 @@
 #include <idtLoader.h>
 #include <time.h>
 #include <videoDriver.h>
+#include <keyboardDriver.h>
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -90,7 +91,8 @@ int main()
 	load_idt();
 
 	clear();
-
+	while(1);
+	/*
 	int i = 90;
 	int j = 10000000;
 	while(i--) {
@@ -98,6 +100,7 @@ int main()
 		printChar('a');
 		j = 10000000;
 	}
+	*/
 
 	/*
 	ncPrint("[Kernel Main]");
@@ -126,7 +129,7 @@ int main()
 	printHs();
 	*/
 
-	//ncPrintDec(ticks_elapsed());
+	printDec(ticks_elapsed());
 
 	return 0;
 }

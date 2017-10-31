@@ -126,7 +126,14 @@ void printBin(uint64_t value){
 
 void printBase(uint64_t value, uint32_t base){
     uintToBase(value, buffer, base);
-    //printString(buffer);
+    printString(buffer);
+}
+void printString(const char * string) {
+	int i;
+	printChar('x');
+	for (i = 0; string[i] != 0; i++){
+		printChar(string[i]);
+	}
 }
 
 void clear(){

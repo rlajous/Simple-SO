@@ -70,6 +70,19 @@ SECTION .text
 	iretq
 %endmacro
 
+%macro irqHandlerMaster 0
+	pushState
+
+	mov rdi, %0 ; pasaje de parametro
+	call irqDispatcher
+
+	; signal pic EOI (End of Interrupt)
+	mov al, 20h
+	out 20h, al
+
+	popState
+	iretq
+%endmacro
 
 
 %macro exceptionHandler 1
