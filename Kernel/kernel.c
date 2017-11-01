@@ -89,9 +89,15 @@ void * initializeKernelBinary()
 int main()
 {	
 	load_idt();
-
+	char c;
 	clear();
-	while(1);
+	while(1){
+		c=get_buffer();
+		if (c!=-1)
+		{
+			printChar(c);
+		}
+	}
 	/*
 	int i = 90;
 	int j = 10000000;

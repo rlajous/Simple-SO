@@ -1,6 +1,15 @@
 #include <keyboardDriver.h>
 #include <videoDriver.h>
 
+#define TRUE 1
+#define FALSE 0
+
+#define BUFFER_SIZE 2000
+#define LEFT 129
+#define RIGHT 130
+#define CAPS 131
+#define SHIFT 132
+
 unsigned char kbdus[128] =
 {
     0,  27, '1', '2', '3', '4', '5', '6', '7', '8',	/* 9 */
@@ -10,13 +19,13 @@ unsigned char kbdus[128] =
   't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n',	/* Enter key */
     0,			/* 29   - Control */
   'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';',	/* 39 */
- '\'', '`',   0,		/* Left shift */
+ '\'', '`',   SHIFT,		/* Left shift */
  '\\', 'z', 'x', 'c', 'v', 'b', 'n',			/* 49 */
-  'm', ',', '.', '/',   0,				/* Right shift */
+  'm', ',', '.', '/',   SHIFT,				/* Right shift */
   '*',
     0,	/* Alt */
   ' ',	/* Space bar */
-    0,	/* Caps lock */
+    CAPS,	/* Caps lock */
     0,	/* 59 - F1 key ... > */
     0,   0,   0,   0,   0,   0,   0,   0,
     0,	/* < ... F10 */
@@ -26,9 +35,9 @@ unsigned char kbdus[128] =
     0,	/* Up Arrow */
     0,	/* Page Up */
   '-',
-    0,	/* Left Arrow */
+    LEFT,	/* Left Arrow */
     0,
-    0,	/* Right Arrow */
+    RIGHT,	/* Right Arrow */
   '+',
     0,	/* 79 - End key*/
     0,	/* Down Arrow */
@@ -39,7 +48,16 @@ unsigned char kbdus[128] =
     0,	/* F11 Key */
     0,	/* F12 Key */
     0,	/* All other keys are undefined */
-};		
+};
+
+static char buffer[BUFFER_SIZE];
+static int index=0;
+static int bufferindex=0;
+static uint8_t ctrl=FALSE;
+static uint8_t caps=FALSE;
+static uint8_t shift=FALSE;
+static uint8_t right=FALSE;
+static uint8_t left=FALSE;
 
 void keyboard_handler()
 {
@@ -54,7 +72,10 @@ void keyboard_handler()
     *  set, that means that a key has just been released */
     if (scancode & 0x80)
     {
-
+    		if(scancode==0x2A || scancode==0XAA){
+        		shift=!shift;
+				return;
+			}
     }
     else
     {
@@ -72,7 +93,38 @@ void keyboard_handler()
         *  you would add 128 to the scancode when you look for it */
         //putch(kbdus[scancode]);
         //putChar(kbdus[scancode]);
-        printChar(kbdus[scancode]);
+        //printChar(kbdus[scancode]);
+    	char key=kbdus[scancode];
+        if(scancode==0x2A || scancode==0XAA||scancode==0x36){
+        	shift=!shift;
+			return;
+		}else if(scancode==0x3A){
+	        caps=!caps;
+	        return;
+		}
+		if (shift || caps)
+		{
+			if (key<='z'&&key>='a')
+			{
+				buffer[bufferindex]=key-'a'+'A';
+				bufferindex=(bufferindex+1)%BUFFER_SIZE;
+			}
+			//buffer[bufferindex++]=
+		}else{
+			buffer[bufferindex]=key;
+			bufferindex=(bufferindex+1)%BUFFER_SIZE;
+		}
+		
+        
 
     }
+}
+
+char get_buffer(){
+	if(index!=bufferindex){
+		char aux=buffer[index];
+		index=(index+1)%BUFFER_SIZE;
+		return aux;
+	}
+	return -1;
 }

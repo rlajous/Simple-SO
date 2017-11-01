@@ -3,5 +3,6 @@
 #include <stdint.h>
 
 void keyboard_handler();
+char get_buffer();
 
 #endif

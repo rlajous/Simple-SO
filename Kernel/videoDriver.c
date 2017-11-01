@@ -5,7 +5,7 @@ static uint32_t uintToBase(uint64_t value, char * buffer, uint32_t base);
 static char buffer[64] = { '0' };
 static uint8_t * const VIDEO = (uint8_t*)0xB8000;
 static uint8_t * currentVideo = (uint8_t*)0xB8000 + 80*2*24;
-static uint8_t fontColor = 0xF;
+static uint8_t fontColor = 0x2;
 static const uint32_t WIDTH = 80;
 static const uint32_t HEIGHT = 25 ;
 static uint8_t * mouse = (uint8_t*)0xB8001;
