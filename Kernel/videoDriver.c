@@ -83,6 +83,8 @@ void copyscreen(char *buffer){
 			buffer[y++] = screen[x];
 	buffer[y] = 0;
 }
+
+//flag == false => llama a cleanBack() que creo que limpia el formato
 void printPosition(uint8_t x,uint8_t y,uint8_t flag){
 	uint8_t flag2 = 0;
 	if(!flag){
