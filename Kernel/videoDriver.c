@@ -50,6 +50,7 @@ void scrollUp(){
 	}
 	scrolling=0;
 	mousescreen = MOUSE_LIMIT - WIDTH;
+	mouseindex = MOUSE_LIMIT - WIDTH;
 
 
 }
