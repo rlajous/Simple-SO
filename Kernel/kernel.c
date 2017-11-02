@@ -15,6 +15,7 @@ extern uint8_t data;
 extern uint8_t bss;
 extern uint8_t endOfKernelBinary;
 extern uint8_t endOfKernel;
+//extern int mousescreen;
 
 static const uint64_t PageSize = 0x1000;
 
@@ -89,13 +90,18 @@ void * initializeKernelBinary()
 int main()
 {	
 	load_idt();
+	load_sys();
+	load_vDriver();
 	char c;
-	clear();
+	//clear();
+	int a;
 	while(1){
 		c=get_buffer();
 		if (c!=-1)
-		{
+		{	
 			printChar(c);
+			//printDec(1);
+			//mousescreen++;
 		}
 	}
 	/*

@@ -51,5 +51,27 @@ getHours:
 	pop rbp
 	ret
 
+getMonth:
+	push rbp
+	mov rbp,rsp
+	mov al,8
+	out 70h,al
+	in al,71h
+	movzx rax,al
+	mov rsp,rbp
+	pop rbp
+	ret
+
+getYear:
+	push rbp
+	mov rbp,rsp
+	mov al,9
+	out 70h,al
+	in al,71h
+	movzx rax,al
+	mov rsp,rbp
+	pop rbp
+	ret
+
 section .data
 section .bss

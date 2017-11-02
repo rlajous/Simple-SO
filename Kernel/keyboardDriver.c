@@ -19,13 +19,13 @@ unsigned char kbdus[128] =
   't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\n',	/* Enter key */
     0,			/* 29   - Control */
   'a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', ';',	/* 39 */
- '\'', '`',   SHIFT,		/* Left shift */
+ '\'', '`',   0,		/* Left shift */
  '\\', 'z', 'x', 'c', 'v', 'b', 'n',			/* 49 */
-  'm', ',', '.', '/',   SHIFT,				/* Right shift */
+  'm', ',', '.', '/',   0,				/* Right shift */
   '*',
     0,	/* Alt */
   ' ',	/* Space bar */
-    CAPS,	/* Caps lock */
+    0,	/* Caps lock */
     0,	/* 59 - F1 key ... > */
     0,   0,   0,   0,   0,   0,   0,   0,
     0,	/* < ... F10 */
@@ -35,9 +35,9 @@ unsigned char kbdus[128] =
     0,	/* Up Arrow */
     0,	/* Page Up */
   '-',
-    LEFT,	/* Left Arrow */
+    0,	/* Left Arrow */
     0,
-    RIGHT,	/* Right Arrow */
+    0,	/* Right Arrow */
   '+',
     0,	/* 79 - End key*/
     0,	/* Down Arrow */

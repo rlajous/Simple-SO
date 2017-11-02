@@ -3,7 +3,7 @@
 #include <defs.h>
 #include <interrupts.h>
 
-#pragma pack(push)		/* Push de la alineación actual */
+#pragma pack (push)		/* Push de la alineación actual */
 #pragma pack (1) 		/* Alinear las siguiente estructuras a 1 byte */
 
 /* Descriptor de interrupcion */
@@ -28,10 +28,11 @@ void load_idt() {
 	setup_IDT_entry (0x20, (uint64_t)&_irq00Handler);
   setup_IDT_entry (0x21, (uint64_t)&_irq01Handler);
 	setup_IDT_entry (0x00, (uint64_t)&_exception0Handler);
+  //setup_IDT_entry (0x80, (uint64_t)&_int80Handler);
 
 
 	//Solo interrupcion timer tick habilitadas
-	picMasterMask(0xFC); 
+	picMasterMask(0xFC);
 	picSlaveMask(0xFF);
         
 	_sti();
