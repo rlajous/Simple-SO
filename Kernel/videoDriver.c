@@ -15,18 +15,20 @@ static uint32_t uintToBase(uint64_t value, char * buffer, uint32_t base);
 static int x_res =0;
 static int y_res =0;
 
-static char buffer[64] = { '0' };
+static char buffer[2000] = { ' ' };
 static unsigned char ** const VIDEO = (unsigned char**) 0x0005C28;
 //static long * currentVideo = (long*)0x0005C28;
 //static uint8_t * mouse = (uint8_t*)currentVideo;
 static int mousescreen = 0;
+static int mouseindex=0;
 static color letter = {0,204,0};
 static color background = {0,0,0};
-
+static int scrolling=0;
 void load_vDriver() {
 	x_res = get_res((unsigned char *)0x0005C12);
 	y_res = get_res((unsigned char *)0x0005C14);
 	mousescreen = MOUSE_LIMIT - WIDTH;
+	mouseindex=mousescreen;
 }
 
 static int get_res(unsigned char *ptr){
@@ -41,19 +43,26 @@ static int get_res(unsigned char *ptr){
 void scrollUp(){
 	memcpy(*VIDEO, *VIDEO + (3 * WIDTH * CHAR_HEIGHT), (HEIGHT * WIDTH * 3) - (CHAR_HEIGHT * WIDTH * 3));
 	mousescreen= MOUSE_LIMIT - WIDTH;
+	scrolling=1;
 	for (int i = 0; i < WIDTH/CHAR_WIDTH; i++){
 		printChar(' ');
+		buffer[i]=' ';
 	}
+	scrolling=0;
 	mousescreen = MOUSE_LIMIT - WIDTH;
+
 
 }
 
 void backspace(){
+	if (mousescreen>MOUSE_LIMIT - WIDTH)
+	{
 		mousescreen--;
-	//	currentScreen -= 2;
+		putCharAt(' ',mousescreen+1);
 		printChar(' ');
-	//	currentScreen -= 2;
 		mousescreen--;
+		mouseindex--;
+	}
 }
 
 void newline() {
@@ -85,8 +94,12 @@ void printChar(char c){
 		backspace();
 	}else if(c=='\n') {
 		newline();
-		//mousescreen += WIDTH -mousescreen%WIDTH;
-	}else{
+		mouseindex= MOUSE_LIMIT - WIDTH;
+	}else if (c>31)
+	{
+		buffer[mousescreen]=c;
+		putCharAt(c,mousescreen);
+		/*
 		int x=(mousescreen/WIDTH)*CHAR_HEIGHT;
 		int y=(mousescreen%WIDTH)*CHAR_WIDTH;
 		unsigned char * char_map = pixel_map(c);
@@ -107,9 +120,83 @@ void printChar(char c){
 					pixColor[2] = 0;
 				}
 			}
-		}
+		}*/
 		mousescreen++;
+		mouseindex++;
+		if (!scrolling)
+		{
+			if(mousescreen%(WIDTH/CHAR_WIDTH) == 0 && mousescreen != MOUSE_LIMIT - WIDTH) {
+				newline();
+			}
+		}
+
 	}
+}
+void cursorLeft(){
+	if (mousescreen>MOUSE_LIMIT - WIDTH)
+	{
+		mousescreen--;
+		putCharAt(buffer[mousescreen+1],mousescreen+1);
+	}
+}
+void cursorRight(){
+	if (mousescreen < mouseindex)
+	{	
+		mousescreen++;
+		putCharAt(buffer[mousescreen-1],mousescreen-1);
+	}
+}
+void putCharAt(char c,int index){
+	int x=(index/WIDTH)*CHAR_HEIGHT;
+	int y=(index%WIDTH)*CHAR_WIDTH;
+	unsigned char * char_map = pixel_map(c);
+	for(int i = 0; i < CHAR_HEIGHT; i++) {
+		unsigned char pixel = char_map[i];
+		char mask[] = {128, 64, 32, 16, 8, 4, 2, 1};
+		char aux;
+		for (int j = 0; j < CHAR_WIDTH; j++) {
+			aux = pixel & mask[j];
+			unsigned char * pixColor = (*VIDEO) + 3 * ((y+j)+(x+i)*WIDTH);
+			if (aux != 0) { // Tiene que escribir en ese lugar
+				pixColor[0] = letter.blue;
+				pixColor[1] = letter.green;
+				pixColor[2] = letter.red;
+			} else {
+				pixColor[0] = 0;
+				pixColor[1] = 0;
+				pixColor[2] = 0;
+			}
+		}
+	}
+}
+void blink(){
+	int x=(mousescreen/WIDTH)*CHAR_HEIGHT;
+	int y=(mousescreen%WIDTH)*CHAR_WIDTH;
+	for (int i = 0; i < CHAR_HEIGHT; i++)
+	{
+		for (int j = 0; j < CHAR_WIDTH; j++)
+		{
+			unsigned char * pixColor = (*VIDEO) + 3 * ((y+j)+(x+i)*WIDTH);
+
+			if(pixColor[0] == letter.blue){
+				pixColor[0] = 0;
+			}else{
+				pixColor[0] = letter.blue;
+			}
+			if(pixColor[1] == letter.green){
+				pixColor[1] = 0;
+			}else{
+				pixColor[1] = letter.green;
+			}
+			if(pixColor[2] == letter.red){
+				pixColor[2] = 0;
+			}else{
+				pixColor[2] = letter.red;
+			}
+
+		}
+	}
+	//mousescreen
 }
 /*
 void printPosition(uint8_t x,uint8_t y,uint8_t flag){

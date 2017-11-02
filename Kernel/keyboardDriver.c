@@ -35,9 +35,9 @@ unsigned char kbdus[128] =
     0,	/* Up Arrow */
     0,	/* Page Up */
   '-',
-    0,	/* Left Arrow */
+    LEFT,	/* Left Arrow */
     0,
-    0,	/* Right Arrow */
+    RIGHT,	/* Right Arrow */
   '+',
     0,	/* 79 - End key*/
     0,	/* Down Arrow */
@@ -58,6 +58,7 @@ static uint8_t caps=FALSE;
 static uint8_t shift=FALSE;
 static uint8_t right=FALSE;
 static uint8_t left=FALSE;
+static uint8_t special=FALSE;
 
 void keyboard_handler()
 {
@@ -76,6 +77,7 @@ void keyboard_handler()
         		shift=!shift;
 				return;
 			}
+
     }
     else
     {
@@ -95,6 +97,18 @@ void keyboard_handler()
         //putChar(kbdus[scancode]);
         //printChar(kbdus[scancode]);
     	char key=kbdus[scancode];
+    	if (scancode==0x4B)
+    	{
+    		cursorLeft();
+    		return;
+    	}
+    	if (scancode==0x4D)
+    	{
+    		cursorRight();
+    		return;
+    	}
+    	
+    	
         if(scancode==0x2A || scancode==0XAA||scancode==0x36){
         	shift=!shift;
 			return;
@@ -103,7 +117,32 @@ void keyboard_handler()
 	        return;
 		}
 		if (shift || caps)
-		{
+		{	
+			if (key=='8')
+			{
+				buffer[bufferindex]='(';
+				bufferindex=(bufferindex+1)%BUFFER_SIZE;
+			}
+			if (key=='9')
+			{
+				buffer[bufferindex]=')';
+				bufferindex=(bufferindex+1)%BUFFER_SIZE;
+			}
+			if (key=='0')
+			{
+				buffer[bufferindex]='=';
+				bufferindex=(bufferindex+1)%BUFFER_SIZE;
+			}
+			if (key=='7')
+			{
+				buffer[bufferindex]='/';
+				bufferindex=(bufferindex+1)%BUFFER_SIZE;
+			}if (key=='2')
+			{
+				buffer[bufferindex]='"';
+				bufferindex=(bufferindex+1)%BUFFER_SIZE;
+			}
+
 			if (key<='z'&&key>='a')
 			{
 				buffer[bufferindex]=key-'a'+'A';

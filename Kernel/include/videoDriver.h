@@ -19,4 +19,7 @@ void scrollUp();
 void backspace();
 void copyscreen(char *buffer);
 void load_vDriver();
+void cursorLeft();
+void cursorRight();
+void blink();
 #endif
