@@ -44,9 +44,6 @@ section .text
 int_80h:
     pushState 0
 
-    mov rax,rdi
-    mov rbx,rsi
-    mov rcx,rdx
     int 80h
 
     popState 0

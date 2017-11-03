@@ -6,17 +6,20 @@ GLOBAL picSlaveMask
 GLOBAL haltcpu
 GLOBAL _hlt
 
+GLOBAL _int80Handler
 GLOBAL _irq00Handler
 GLOBAL _irq01Handler
 GLOBAL _irq02Handler
 GLOBAL _irq03Handler
 GLOBAL _irq04Handler
 GLOBAL _irq05Handler
+;GLOBAL _int80Handler
 
 GLOBAL _exception0Handler
 
 EXTERN irqDispatcher
 EXTERN exceptionDispatcher
+EXTERN sys_handler
 
 SECTION .text
 
@@ -126,6 +129,12 @@ picSlaveMask:
     pop     rbp
     retn
 
+;SYS
+_int80Handler:
+	pushState
+	call sys_handler
+	popState
+	ret
 
 ;8254 Timer (Timer Tick)
 _irq00Handler:
@@ -150,10 +159,6 @@ _irq04Handler:
 ;USB
 _irq05Handler:
 	irqHandlerMaster 5
-;SYS
-_int80Handler:
-	softwareIntHandler
-
 
 ;Zero Division Exception
 _exception0Handler:
