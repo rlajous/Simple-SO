@@ -4,7 +4,8 @@
 extern int getSeconds();
 extern int getMinutes();
 extern int getHours();
-typedef void (*fn)(unsigned long rdx, unsigned long rcx, unsigned long r8, unsigned long r9, unsigned long r10);
+
+typedef void (*fn)(unsigned long rdi, unsigned long rsi, unsigned long rcx, unsigned long r8, unsigned long r9);
 
 static fn sysCalls[5];
 
@@ -35,7 +36,7 @@ void sys_read(unsigned long buffer, unsigned long size, unsigned long r8, unsign
 void load_sys(){
 	sysCalls[0]= &sys_clear;
 	sysCalls[1]= &sys_write;
-	sysCalls[2]= &sys_write;
+	sysCalls[2]= &sys_read;
 	sysCalls[3]= &sys_setTerminal;
 	sysCalls[4]= &sys_time;
 }
