@@ -20,6 +20,9 @@ void sys_write(unsigned long buffer, unsigned long rcx, unsigned long r8, unsign
 		printChar(*(c+i));
 	}
 }
+void sys_setTerminal(unsigned long size, unsigned long rcx, unsigned long r8, unsigned long r9){
+	setTerminal((int)size);
+}
 void sys_read(unsigned long buffer, unsigned long size, unsigned long r8, unsigned long r9){
 	buff=(char*)buffer;
 	for (int i = 0; i < size; i++)
@@ -34,7 +37,7 @@ void load_sys(){
 }
 void sys_handler(unsigned long rsi, unsigned long rdx, unsigned long rcx, unsigned long r8, unsigned long r9){
 	if (rsi>=0&&rsi<=3){
-		sysCalls[rsi](rdx,rcx);
+		sysCalls[rsi](rdx,rcx,r8,r9);
 	}
 	return;
 }

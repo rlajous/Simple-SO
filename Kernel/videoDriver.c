@@ -14,6 +14,7 @@ static uint32_t uintToBase(uint64_t value, char * buffer, uint32_t base);
 
 static int x_res =0;
 static int y_res =0;
+static int terminal= 0;
 
 static char buffer[2000] = { ' ' };
 static unsigned char ** const VIDEO = (unsigned char**) 0x0005C28;
@@ -29,6 +30,11 @@ void load_vDriver() {
 	y_res = get_res((unsigned char *)0x0005C14);
 	mousescreen = MOUSE_LIMIT - WIDTH;
 	mouseindex=mousescreen;
+}
+
+void setTerminal(int t){
+	terminal=t;
+	mousescreen= MOUSE_LIMIT - WIDTH +terminal;
 }
 
 static int get_res(unsigned char *ptr){
@@ -49,14 +55,14 @@ void scrollUp(){
 		buffer[i]=' ';
 	}
 	scrolling=0;
-	mousescreen = MOUSE_LIMIT - WIDTH;
-	mouseindex = MOUSE_LIMIT - WIDTH;
+	mousescreen = MOUSE_LIMIT - WIDTH + terminal;
+	mouseindex = MOUSE_LIMIT - WIDTH + terminal;
 
 
 }
 
 void backspace(){
-	if (mousescreen>MOUSE_LIMIT - WIDTH)
+	if (mousescreen>MOUSE_LIMIT - WIDTH + terminal)
 	{
 		mousescreen--;
 		putCharAt(' ',mousescreen+1);
@@ -134,7 +140,7 @@ void printChar(char c){
 	}
 }
 void cursorLeft(){
-	if (mousescreen>MOUSE_LIMIT - WIDTH)
+	if (mousescreen>MOUSE_LIMIT - WIDTH + terminal)
 	{
 		mousescreen--;
 		putCharAt(buffer[mousescreen+1],mousescreen+1);
