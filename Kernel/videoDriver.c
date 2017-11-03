@@ -55,7 +55,7 @@ void scrollUp(){
 		buffer[i]=' ';
 	}
 	scrolling=0;
-	mousescreen = MOUSE_LIMIT - WIDTH + terminal;
+	mousescreen = MOUSE_LIMIT - WIDTH;
 	mouseindex = MOUSE_LIMIT - WIDTH + terminal;
 
 
