@@ -15,7 +15,7 @@ void sys_clear(unsigned long rdx, unsigned long rcx, unsigned long r8, unsigned 
 	clear();
 }
 
-void sys_write(unsigned long buffer, unsigned long rcx, unsigned long r8, unsigned long r9, unsigned long r10){
+void sys_write(unsigned long buffer, unsigned long size, unsigned long r8, unsigned long r9, unsigned long r10){
 	char* c=(char*)buffer;
 	for (int i = 0; i < size; i++)
 	{
@@ -26,7 +26,7 @@ void sys_setTerminal(unsigned long size, unsigned long rcx, unsigned long r8, un
 	setTerminal((int)size);
 }
 void sys_read(unsigned long buffer, unsigned long size, unsigned long r8, unsigned long r9, unsigned long r10){
-	buff=(char*)buffer;
+	char * buff=(char*)buffer;
 	for (int i = 0; i < size; i++)
 	{
 		*(buff + i) =get_buffer();
