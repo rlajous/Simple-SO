@@ -6,7 +6,7 @@ extern int getMinutes();
 extern int getHours();
 typedef void (*fn)(unsigned long rdx, unsigned long rcx, unsigned long r8, unsigned long r9);
 
-static fn sysCalls[3];
+static fn sysCalls[4];
 
 
 void sys_clear(unsigned long rdx, unsigned long rcx, unsigned long r8, unsigned long r9){
@@ -34,6 +34,7 @@ void load_sys(){
 	sysCalls[0]= &sys_clear;
 	sysCalls[1]= &sys_write;
 	sysCalls[2]= &sys_write;
+	sysCalls[3]= &sys_setTerminal;
 }
 void sys_handler(unsigned long rsi, unsigned long rdx, unsigned long rcx, unsigned long r8, unsigned long r9){
 	if (rsi>=0&&rsi<=3){
