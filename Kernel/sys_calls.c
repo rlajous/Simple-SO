@@ -4,6 +4,9 @@
 extern int getSeconds();
 extern int getMinutes();
 extern int getHours();
+extern int getMonth();
+extern int getYear();
+
 
 typedef void (*fn)(unsigned long rsi, unsigned long rdx, unsigned long rcx, unsigned long r8, unsigned long r9);
 

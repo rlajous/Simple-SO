@@ -42,9 +42,9 @@ section .text
 
 
 int_80h:
-    pushState 0
+    pushState
 
     int 80h
 
-    popState 0
+    popState
     ret
