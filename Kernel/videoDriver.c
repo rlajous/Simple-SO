@@ -159,7 +159,7 @@ void putCharAt(char c,int index){
 	unsigned char * char_map = pixel_map(c);
 	for(int i = 0; i < CHAR_HEIGHT; i++) {
 		unsigned char pixel = char_map[i];
-		char mask[] = {128, 64, 32, 16, 8, 4, 2, 1};
+		char mask[] = {0x80, 0x40, 0x20, 0x10, 0x08, 0x04, 0x02, 0x01};
 		char aux;
 		for (int j = 0; j < CHAR_WIDTH; j++) {
 			aux = pixel & mask[j];
