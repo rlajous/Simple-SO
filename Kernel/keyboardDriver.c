@@ -152,18 +152,19 @@ void keyboard_handler()
 		}else{
 			buffer[bufferindex]=key;
 			bufferindex=(bufferindex+1)%BUFFER_SIZE;
-		}
-		
-        
+        }
+       
 
     }
 }
 
 char get_buffer(){
+    //printChar('a');
 	if(index!=bufferindex){
 		char aux=buffer[index];
 		index=(index+1)%BUFFER_SIZE;
-		return aux;
-	}
+        //printChar('a');
+        return aux;
+    }
 	return -1;
 }

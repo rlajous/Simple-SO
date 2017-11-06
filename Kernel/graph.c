@@ -1,4 +1,5 @@
-/*comento hasta que putPixel exista
+/*
+//comento hasta que putPixel exista
 
 #include <keyboardDriver.h>
 #include <videoDriver.h>
@@ -41,5 +42,4 @@ void graph_cuadratic(int a, int b, int c) {
 		}
     }
 }
-
 */

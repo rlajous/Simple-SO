@@ -134,7 +134,7 @@ _int80Handler:
 	pushState
 	call sys_handler
 	popState
-	ret
+	iretq
 
 ;8254 Timer (Timer Tick)
 _irq00Handler:

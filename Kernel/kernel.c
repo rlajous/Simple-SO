@@ -95,6 +95,10 @@ int main()
 	char c;
 	//clear();
 	int a;
+
+	((EntryPoint)sampleCodeModuleAddress)();
+	while (1);
+	/*
 	while(1){
 		c=get_buffer();
 		if (c!=-1)
@@ -103,7 +107,9 @@ int main()
 			//printDec(1);
 			//mousescreen++;
 		}
+
 	}
+	*/
 	/*
 	int i = 90;
 	int j = 10000000;
@@ -140,9 +146,9 @@ int main()
 	setFormat();
 	printHs();
 	*/
-
+	/*
 	printDec(ticks_elapsed());
-
+	*/
 	return 0;
 }
 

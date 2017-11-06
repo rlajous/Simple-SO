@@ -1,4 +1,4 @@
-//#include "syscalls.h"
+#include "syscalls.h"
 #include <interrupt.h>
 
 void int_80h(unsigned long rdi, unsigned long rsi, unsigned long rdx, unsigned long rcx, unsigned long r8, unsigned long r9);
@@ -11,4 +11,7 @@ void write(char *buffer, unsigned int size) {
 }
 void time(int sec,int min,int hs,int mont,int year) {
      int_80h(4, (unsigned long) sec,(unsigned long) min,(unsigned long) hs, (unsigned long) mont,(unsigned long) year);
+}
+void setTerminal(unsigned long size){
+	int_80h(3,size,0, 0, 0,  0);
 }

@@ -25,13 +25,14 @@ void sys_write(unsigned long buffer, unsigned long size, unsigned long rcx, unsi
 	char* c=(char*)buffer;
 	for (int i = 0; i < size; i++)
 	{
-		printChar(*(c+i));
+		printChar(c[i]);
 	}
 }
 void sys_setTerminal(unsigned long size, unsigned long rdx, unsigned long rcx, unsigned long r8, unsigned long r9){
 	setTerminal((int)size);
 }
 void sys_read(unsigned long buffer, unsigned long size, unsigned long rcx, unsigned long r8, unsigned long r9){
+
 	char * buff=(char*)buffer;
 	for (int i = 0; i < size; i++)
 	{
@@ -47,7 +48,7 @@ void load_sys(){
 }
 //rdi, rsi, rdx, rcx, r8 y r9
 void sys_handler(unsigned long rdi, unsigned long rsi, unsigned long rdx, unsigned long rcx, unsigned long r8, unsigned long r9){
-	if (rsi>=0&&rsi<=3){
+	if (rdi>=0&&rdi<=4){
 		sysCalls[rdi](rsi,rdx,rcx,r8,r9);
 	}
 	return;

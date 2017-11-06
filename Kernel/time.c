@@ -9,6 +9,7 @@ void timer_handler() {
 	{
 		blink();
 	}
+
 }
 
 int ticks_elapsed() {
