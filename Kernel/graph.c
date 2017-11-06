@@ -1,13 +1,15 @@
+/*comento hasta que putPixel exista
+
 #include <keyboardDriver.h>
 #include <videoDriver.h>
 
-extern putPixel(x, y)
+extern void putPixel(int x, int y)
 
 //hay que reemplazar por los valores en videoDriver
-width = 1
-height = 1
-charWidth = 1
-charHeight = 1
+int width = 1
+int height = 1
+int charWidth = 1
+int charHeight = 1
 
 void graph_axis() {
     for(int y=0; y<height-2*charHeight; y--) {
@@ -39,3 +41,5 @@ void graph_cuadratic(int a, int b, int c) {
 		}
     }
 }
+
+*/
