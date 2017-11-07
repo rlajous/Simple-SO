@@ -10,7 +10,7 @@ extern int getYear();
 
 typedef void (*fn)(unsigned long rsi, unsigned long rdx, unsigned long rcx, unsigned long r8, unsigned long r9);
 
-static fn sysCalls[5];
+static fn sysCalls[7];
 
 void sys_time(unsigned long sec, unsigned long min, unsigned long hour, unsigned long month, unsigned long year){
 	sec=getSeconds();
@@ -39,16 +39,27 @@ void sys_read(unsigned long buffer, unsigned long size, unsigned long rcx, unsig
 		*(buff + i) =get_buffer();
 	}
 }
+void sys_graphic(unsigned long buffer, unsigned long size, unsigned long rcx, unsigned long r8, unsigned long r9){
+	printPixel((int)buffer);
+}
+
+void sys_resolution(unsigned long height, unsigned long width, unsigned long rcx, unsigned long r8, unsigned long r9){
+	getResolution((int *)height,(int *)width);
+	//(int)
+}
+
 void load_sys(){
 	sysCalls[0]= &sys_clear;
 	sysCalls[1]= &sys_write;
 	sysCalls[2]= &sys_read;
 	sysCalls[3]= &sys_setTerminal;
 	sysCalls[4]= &sys_time;
+	sysCalls[5]= &sys_graphic;
+	sysCalls[6]= &sys_resolution;
 }
 //rdi, rsi, rdx, rcx, r8 y r9
 void sys_handler(unsigned long rdi, unsigned long rsi, unsigned long rdx, unsigned long rcx, unsigned long r8, unsigned long r9){
-	if (rdi>=0&&rdi<=4){
+	if (rdi>=0&&rdi<=6){
 		sysCalls[rdi](rsi,rdx,rcx,r8,r9);
 	}
 	return;

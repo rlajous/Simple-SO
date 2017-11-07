@@ -15,3 +15,9 @@ void time(int sec,int min,int hs,int mont,int year) {
 void setTerminal(unsigned long size){
 	int_80h(3,size,0, 0, 0,  0);
 }
+void printGraphic(int buffer) {
+     int_80h(5, (unsigned long) buffer, 0,0,0,0);
+}
+void getResolution(int *height,int * width) {
+     int_80h(6, (unsigned long) height, (unsigned long)width,0,0,0);
+}

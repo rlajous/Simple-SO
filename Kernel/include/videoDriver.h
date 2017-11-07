@@ -22,4 +22,6 @@ void load_vDriver();
 void cursorLeft();
 void cursorRight();
 void blink();
+void printPixel(int matriz);
+void putPixelAt(int color,int index);
 #endif
