@@ -6,6 +6,7 @@
 void shell(){
 	char* buffer[25*80];
 	int i = 0;
+	clearScreen();
 	while(1) {
 		read(&(buffer+i), 1)
 		if ((c = buffer[i]) != EOF) {
@@ -35,6 +36,7 @@ void shell(){
 }
 
 int parse(char* input) {
+	int j = 0;
 	if(strncmp("graph ",input,6) == 0) {
 		int a=0,b=0,c=0;
 		//no se que tan bien esta &(input[6])
