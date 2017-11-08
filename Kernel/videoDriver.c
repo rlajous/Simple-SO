@@ -211,7 +211,7 @@ void blink(){
 	}
 	//mousescreen
 }
-
+/*
 void printPixel(int matriz){
 
 	putPixelAt(matriz,mousepixel++);
@@ -221,24 +221,27 @@ void printPixel(int matriz){
 	}
 
 }
+*/
 
-void putPixelAt(int color,int index) {
-
+void putPixelAt(int color,int xx,int yy) {
+	/*
 	int x=(index/WIDTH);
 	int y=(index%WIDTH);
-
-	unsigned char * pixColor = (*VIDEO) + 3 * ((y)+(x)*WIDTH);
-	if (color == 1) { // Tiene que escribir en ese lugar
-		pixColor[0] = letter.blue;
-		pixColor[1] = letter.green;
-		pixColor[2] = letter.red;
-	} else {
-		pixColor[0] = 0;
-		pixColor[1] = 0;
-		pixColor[2] = 0;
+	*/
+	if (yy<WIDTH&&xx<HEIGHT){
+		unsigned char * pixColor = (*VIDEO) + 3 * ((yy)+(xx)*WIDTH);
+		if (color == 1) { // Tiene que escribir en ese lugar
+			pixColor[0] = letter.blue;
+			pixColor[1] = letter.green;
+			pixColor[2] = letter.red;
+		} else {
+			pixColor[0] = 0;
+			pixColor[1] = 0;
+			pixColor[2] = 0;
+		}
 	}
-
 }
+
 /*
 void printPosition(uint8_t x,uint8_t y,uint8_t flag){
 	uint8_t flag2 = 0;
