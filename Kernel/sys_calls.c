@@ -48,6 +48,10 @@ void sys_resolution(unsigned long height, unsigned long width, unsigned long rcx
 	//(int)
 }
 
+void sys_backspace(unsigned long rsi, unsigned long rdx, unsigned long rcx, unsigned long r8, unsigned long r9){
+	backspace();
+}
+
 void load_sys(){
 	sysCalls[0]= &sys_clear;
 	sysCalls[1]= &sys_write;
@@ -56,6 +60,7 @@ void load_sys(){
 	sysCalls[4]= &sys_time;
 	sysCalls[5]= &sys_graphic;
 	sysCalls[6]= &sys_resolution;
+	sysCalls[7]= &sys_backspace;
 }
 //rdi, rsi, rdx, rcx, r8 y r9
 void sys_handler(unsigned long rdi, unsigned long rsi, unsigned long rdx, unsigned long rcx, unsigned long r8, unsigned long r9){
