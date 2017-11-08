@@ -60,7 +60,7 @@ int strcmp(char* str1, char* str2) {
 	return str1[i] - str2[i];
 }
 
-int strcmp(char* str1, char* str2, int n) {
+int strncmp(char* str1, char* str2, int n) {
 	int i = 0;
 	int strlen1 = strlen(str1);
 	int strlen2 = strlen(str2);
