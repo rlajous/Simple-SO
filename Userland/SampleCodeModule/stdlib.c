@@ -59,3 +59,13 @@ int strcmp(char* str1, char* str2) {
 	}
 	return str1[i] - str2[i];
 }
+
+int strcmp(char* str1, char* str2, int n) {
+	int i = 0;
+	int strlen1 = strlen(str1);
+	int strlen2 = strlen(str2);
+	while(i+1<n && i<strlen1 && i<strlen2 && *(str1 + i) == *(str2 + i)) {
+		i++;
+	}
+	return str1[i] - str2[i];
+}
