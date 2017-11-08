@@ -67,18 +67,26 @@ int strcmp(char* str1, char* str2) {
 	int i = 0;
 	int strlen1 = strlen(str1);
 	int strlen2 = strlen(str2);
-	while(i<strlen1 && i<strlen2 && *(str1 + i) == *(str2 + i)) {
+	while(i<strlen1 && i<strlen2 && str1[i] == str2[i]) {
 		i++;
 	}
 	return str1[i] - str2[i];
 }
+
+
+
+
+
 
 int strncmp(char* str1, char* str2, int n) {
 	int i = 0;
 	int strlen1 = strlen(str1);
 	int strlen2 = strlen(str2);
 	while(i+1<n && i<strlen1 && i<strlen2 && *(str1 + i) == *(str2 + i)) {
+		//printf("str1=%c   str2=%c    \n", str1[i] , str2[i]);
 		i++;
+		//printf("str1=%c   str2=%c    \n", str1[i] , str2[i]);
 	}
+	//printf("str1=%c   str2=%c    \n", str1[i] , str2[i]);
 	return str1[i] - str2[i];
 }
