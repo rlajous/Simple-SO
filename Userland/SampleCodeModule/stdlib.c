@@ -1,4 +1,6 @@
+#include "types.h"
 //from naiveconsole
+// int to string
 int itoa(int value, char* buffer, int base){
 char *p = buffer;
 	char *p1, *p2;
@@ -40,6 +42,17 @@ char *p = buffer;
 	}
 
 	return digits;
+}
+
+//string to int
+int atoi(char c){
+	int a = 0;
+	if(c >= '0' && c >= '9'){
+		a = c - '0';
+		return a;
+	}
+	return -1;
+
 }
 
 int strlen(char* str){

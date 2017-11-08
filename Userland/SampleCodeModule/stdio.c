@@ -1,5 +1,6 @@
 #include "syscalls.h"
 #include "stdlib.h"
+#include "types.h"
 #include <stdarg.h>
 
 void putchar(char letter){
@@ -8,9 +9,7 @@ void putchar(char letter){
 
 char getchar(){
 	char letter;
-	do {
-		read(&letter, 1);
-	}while(letter == -1);
+	read(&letter, 1);
 	return letter;
 }
 
@@ -54,8 +53,46 @@ int printf(const char* format, ...){
 int scanf(const char* format, ...){
 	va_list args; //lista de argumentos variables 
 	va_start(args, format); // dice que la lista de args empieza despues de format
-	while(getchar() != '\n'){
-		
-	}
+	char c;
+	boolean neg = false;
+	int* p;
+	int aux, num;
+	c = getchar();
+	while(c != '\n' ){
+		//aux = (char) va_arg(args, int);
+		if(format == '%'){
+			switch(*(format+1)){
+				case 'd':
+					if(c >= '0' && c <= '9' || c == '-'){
+						p = (int*) va_arg(args, int);
+						if(c == '-'){
+							neg = true;				
+						}
+						do{
+							aux = atoi(c);
+							num = (num*10) + aux;
+							*p = num;
+						}while(c >= '0' && c <= '9');
+						if(neg == true){
+							num = num - (2*num);
+						}
+						*p = num;
+						format +=2;
+					}else {
+						return 0;
+					}
+					break;
+				case 'c':
+					if( (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')){}
+					break;	
 
+				case 's':
+					break; 
+			}
+			format++;
+		}else if(c == format){
+
+		}
+	}
+	return 0;
 }

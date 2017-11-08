@@ -6,7 +6,7 @@ int height = 1;
 
 void setVideo(){
 	getResolution(&height,&width);
-    printf("%d       %d\n",width,height);
+    //printf("%d       %d\n",width,height);
 }
 /*
 void graph_axis() {

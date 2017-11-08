@@ -4,5 +4,6 @@
 void putchar(char letter);
 char getchar();
 int printf(const char* format, ...);
+int scanf(const char* format, ...);
 
 #endif 

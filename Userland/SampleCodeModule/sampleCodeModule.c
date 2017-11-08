@@ -8,10 +8,11 @@
 int main() {
 	//All the following code may be removed 
 	
-	char buffer[500]={'0'};
 	//Test if BSS is properly set up
 	setVideo();
-	graph_cuadratic(2,50, 10);
+	printf("llegue\n");
+	shell();
+	printf("pase\n");
 	//printGraphic(1);
 	//printGraphic(1);
 	//printGraphic(0);
