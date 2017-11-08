@@ -21,3 +21,9 @@ void printGraphic(int buffer) {
 void getResolution(int *height,int * width) {
      int_80h(6, (unsigned long) height, (unsigned long)width,0,0,0);
 }
+void backspace() {
+     int_80h(7,0,0,0,0,0);
+}
+void newline() {
+     int_80h(8,0,0,0,0,0);
+}
