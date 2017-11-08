@@ -4,12 +4,37 @@
 #include <graph.h>
 
 void shell(){
-	char* input;
+	char* buffer[25*80];
 	int i = 0;
-	while(input[i] != -1) {
-		read(&(input+i), 1)
-		i++;
+	while(1) {
+		read(&(buffer+i), 1)
+		if ((c = buffer[i]) != EOF) {
+			if(c=='\b') {
+				if(i != 0) {
+					i--;
+					buffer[i]=0;
+					backspace();
+				}
+			}
+			else {
+				if(c=='\n') {
+					newline();
+					buffer[i]=0;
+					parse(buffer);
+					i=0;
+					buffer[i]=0;
+				}else {
+					buffer[i]=c;
+					i++;
+					buffer[i]=0;
+					write(&(buffer[i]),1);	
+				}
+			}
+		}
 	}
+}
+
+int parse(char* input) {
 	if(strncmp("graph ",input,6) == 0) {
 		int a=0,b=0,c=0;
 		//no se que tan bien esta &(input[6])
@@ -40,7 +65,6 @@ void shell(){
 			graph_cuadratic(a,b,c);
 		}
 	}
-	
 }
 
 int parseNum(char* input, int* p) {
