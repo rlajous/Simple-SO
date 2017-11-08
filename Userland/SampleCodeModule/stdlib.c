@@ -43,11 +43,19 @@ char *p = buffer;
 }
 
 int strlen(char* str){
-	int length = 0;
 	int i = 0;
-	do{
-		length++;
+	while (*(str + i) != 0){
 		i++;
-	}while (*(str + i) != 0);
-	return length;
+	}
+	return i;
+}
+
+int strcmp(char* str1, char* str2) {
+	int i = 0;
+	int strlen1 = strlen(str1);
+	int strlen2 = strlen(str2);
+	while(i<strlen1 && i<strlen2 && *(str1 + i) == *(str2 + i)) {
+		i++;
+	}
+	return str1[i] - str2[i];
 }
