@@ -27,3 +27,6 @@ void backspace() {
 void newline() {
      int_80h(8,0,0,0,0,0);
 }
+void clearScreen() {
+     int_80h(9,0,0,0,0,0);
+}
