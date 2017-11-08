@@ -23,5 +23,5 @@ void cursorLeft();
 void cursorRight();
 void blink();
 void printPixel(int matriz);
-void putPixelAt(int color,int index);
+void putPixelAt(int color,int xx,int yy);
 #endif

@@ -39,8 +39,9 @@ void sys_read(unsigned long buffer, unsigned long size, unsigned long rcx, unsig
 		*(buff + i) =get_buffer();
 	}
 }
-void sys_graphic(unsigned long buffer, unsigned long size, unsigned long rcx, unsigned long r8, unsigned long r9){
-	printPixel((int)buffer);
+void sys_graphic(unsigned long color, unsigned long x, unsigned long y, unsigned long r8, unsigned long r9){
+	//printPixel((int)buffer);
+	putPixelAt((int)color,(int)x,(int)y);
 }
 
 void sys_resolution(unsigned long height, unsigned long width, unsigned long rcx, unsigned long r8, unsigned long r9){
