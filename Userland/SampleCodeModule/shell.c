@@ -11,6 +11,7 @@ void shell(){
 	char c,d;
 	char* user = "User: ";
 	setTerminal(strlen(user));
+	printf("\n");
 	printf("%s\n", user);
 	// settear el largo de como poronga vamos a llamar al chabon === User: 
 	while(1) {
@@ -63,6 +64,7 @@ int parse(char* input) {
 			
 			b = parseNum(input, &j);
 			//printf("%d %d \n",a,b );
+			clearScreen();
 			graph_line(a,b);
 		}
 		else if(strncmp("cuadratic ",&(input[6]),10) == 0) {
