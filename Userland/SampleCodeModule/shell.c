@@ -36,7 +36,7 @@ void shell(){
 					i=0;
 					buffer[i]=0;
 					printf("%s", user);
-					printf("algo");
+					printf("");
 				}else {
 					buffer[i]=c;
 					i++;
