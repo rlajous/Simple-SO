@@ -74,7 +74,6 @@ int parse(char* input) {
    	 return -1;
     }
     if(strncmp(input, "echo ", 5) == 0) {
-   	 newline();
    	 char* phrase = &(input[5]);
    	 write(phrase, strlen(phrase));
    	 newline2();
