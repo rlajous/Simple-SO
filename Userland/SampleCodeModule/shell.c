@@ -33,8 +33,6 @@ void shell(){
    					 return;
    				 i=0;
    				 buffer[i]=0;
-   				 printf("%s", user);
-   				 printf("");
    			 }else {
    				 buffer[i]=c;
    				 i++;
