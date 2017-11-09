@@ -299,7 +299,11 @@ void printString(const char * string) {
 
 void clear(){
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 	for (int i = 0; i < HEIGHT/CHAR_HEIGHT; i++){
+=======
+	for(int i=0; i<47; i++)
+>>>>>>> Stashed changes
 =======
 	for(int i=0; i<47; i++)
 >>>>>>> Stashed changes
