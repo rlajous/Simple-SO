@@ -14,7 +14,16 @@ typedef void (*fn)(unsigned long rsi, unsigned long rdx, unsigned long rcx, unsi
 static fn sysCalls[9];
 
 void sys_time(unsigned long sec, unsigned long min, unsigned long hour, unsigned long month, unsigned long year){
-	printHs();
+	int *segundos=(int *)sec;
+	int *minutos=(int *)min;
+	int *horas=(int *)hour;
+	int *meses=(int *)month;
+	int *anos=(int *)year;
+	(*segundos)=getSeconds();
+	(*minutos)=getMinutes();
+	(*horas)=getHours();
+	//(*meses)=getMonth();
+	//(*anos)=getYear();
 }
 void sys_clear(unsigned long rsi, unsigned long rdx, unsigned long rcx, unsigned long r8, unsigned long r9){
 	clear();

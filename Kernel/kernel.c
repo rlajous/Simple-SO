@@ -92,6 +92,7 @@ int main()
 	load_idt();
 	load_sys();
 	load_vDriver();
+	setFormat();
 	char c;
 	//clear();
 	int a;

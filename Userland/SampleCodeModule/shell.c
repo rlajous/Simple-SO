@@ -26,7 +26,7 @@ void shell(){
    		 }
    		 else {
    			 if(c=='\n') {
-   				 newline2();
+   				 write(&c,1);
    				 buffer[i]=0;
    				 ret = parse(buffer);
    				 if(ret == 2)
@@ -48,6 +48,7 @@ void shell(){
 int parse(char* input) {    
     if(strncmp("graph ",input,6) == 0) {
    	 clearScreen();
+   	 printf("\n");
    	 printf("%s\n", "User: ");
    	 int a=0,b=0,c=0;
    	 if(strncmp("line ",&(input[6]),5) == 0) {
@@ -67,35 +68,36 @@ int parse(char* input) {
    		 b =  parseNum(input, &j);
    		 j++;
    		 c = parseNum(input, &j);
-   		 clearScreen();
+   		 //clearScreen();
    		 graph_cuadratic(a,b,c);
    		 return 0;
    	 }
    	 return -1;
-    }
-    if(strncmp(input, "echo ", 5) == 0) {
-   	 char* phrase = &(input[5]);
-   	 write(phrase, strlen(phrase));
-   	 newline2();
-   	 return 0;
-    }
-    if(strcmp(input, "getTime") == 0) {
-   	 time();
-   	 return 0;
-    }
-    if(strcmp(input, "clear") == 0) {
+    }else if(strncmp(input, "echo ", 5) == 0) {
+		char* phrase = &(input[5]);
+		write(phrase, strlen(phrase));
+		newline2();
+   		return 0;
+    }else if(strcmp(input, "getTime") == 0) {
+    	int sec,min,hs,month,year=0;
+   		time(&sec,&min,&hs,&month,&year);
+   		printf("%d : %d : %d ",hs,min,sec);
+   		newline2();
+   		return 0;
+    }else if(strcmp(input, "clear") == 0) {
    	  clearScreen();
    	  newline2();
    	  return 0;
-    }
-    if(strcmp(input, "help") == 0) {
+    }else if(strcmp(input, "help") == 0) {
    	 printHelp();
    	 return 0;
-    }
-    if(strcmp(input, "exit") == 0) {
+    }else if(strcmp(input, "exit") == 0) {
    	 //return 1 es que termina shell()
    	 //pero no anda
    	 return 1;
+    }else{
+    	printf("Wrong command\n");
+    	printf("%s\n", "User: ");
     }
     return -1;
 }
@@ -122,18 +124,17 @@ int parseNum(char* input, int * p) {
 }
 
 void printHelp() {
-    printf("\n");
     printf("graph (line|cuadratic) a b (c) - graphs a line (a*x + b) or a parabola (a*x*x + b*x + c)\n");
     printf("echo (message) - prints out the message\n");
     printf("getTime - prints the current time\n");
     printf("clear - clears the screen\n");
-    printf("help - well.. you know what it does\n");
+    printf("help - display available commands\n");
     printf("exit - exits the terminal");
     newline2();
 }
 
 void newline2() {
-    newline();
+    //newline();
     write("\n",1);
     printf("User: ");
 }

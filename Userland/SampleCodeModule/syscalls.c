@@ -10,8 +10,8 @@ void read(char *buffer, unsigned int size) {
 void write(char *buffer, unsigned int size) {
      int_80h(1, (unsigned long) buffer, (unsigned long)size,0,0,0);
 }
-void time() {
-     int_80h(4,0,0,0,0,0);
+void time(unsigned long rsi, unsigned long rdx, unsigned long rcx, unsigned long r8, unsigned long r9) {
+     int_80h(4,rsi,rdx,rcx,r8,r9);
 }
 void setTerminal(unsigned long size){
 	int_80h(3,size,0,0,0,0);
