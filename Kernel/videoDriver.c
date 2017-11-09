@@ -298,7 +298,11 @@ void printString(const char * string) {
 }
 
 void clear(){
+<<<<<<< Updated upstream
 	for (int i = 0; i < HEIGHT/CHAR_HEIGHT; i++){
+=======
+	for(int i=0; i<47; i++)
+>>>>>>> Stashed changes
 		newline();
 	/*mousescreen = 0;
 	for (int i = 0; i < HEIGHT * WIDTH; i++){
