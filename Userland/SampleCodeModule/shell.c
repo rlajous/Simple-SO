@@ -13,6 +13,7 @@ void shell(){
     setTerminal(strlen(user));
     printf("\n");
     printf("%s\n", user);
+    printHelp();
     // settear el largo de como poronga vamos a llamar al chabon === User:
     while(1) {
    	 if ((c = getchar()) != EOF) {
@@ -90,7 +91,6 @@ int parse(char* input) {
     }
     if(strcmp(input, "help") == 0) {
    	 printHelp();
-   	 newline2();
    	 return 0;
     }
     if(strcmp(input, "exit") == 0) {
@@ -130,6 +130,7 @@ void printHelp() {
     printf("clear - clears the screen\n");
     printf("help - well.. you know what it does\n");
     printf("exit - exits the terminal");
+    newline2();
 }
 
 void newline2() {
