@@ -7,7 +7,7 @@
 
 void shell(){
 	char buffer[25*80];
-	int i = 0;
+	int i = 0, ret = 0;
 	char c,d;
 	char* user = "User: ";
 	setTerminal(strlen(user));
@@ -26,12 +26,11 @@ void shell(){
 			}
 			else {
 				if(c=='\n') {
-					newline();
-					write(&c,1);
-					printf("%s\n", user);
-
+					newline2();
 					buffer[i]=0;
-					parse(buffer);
+					ret = parse(buffer);
+					if(ret == 2)
+						return;
 					i=0;
 					buffer[i]=0;
 				}else {
@@ -41,40 +40,26 @@ void shell(){
 					write(&c,1);	
 				}
 			}
-			//write(&c,1);
 		}
 	}
 }
 
-int parse(char* input) {
-
-	
-	int strcm = strncmp("graph ",input,6);
-	printf("%d\n",strncmp("clear",input,5));
-	if (strncmp("clear",input,5)==0)
-	{	
+//retorna 0 si no hay error
+int parse(char* input) {	
+	if(strncmp("graph ",input,6) == 0) {
 		clearScreen();
-		printf("\n");
-		printf("User: ");
-	}
-	
-	if(strcm == 0) {
+		printf("%s\n", "User: ");
 		int a=0,b=0,c=0;
-		
-		//no se que tan bien esta &(input[6])
 		if(strncmp("line ",&(input[6]),5) == 0) {
 			int j = 11;
-			
 			a = parseNum(input, &j);
 			j++;
 			
-			
 			b = parseNum(input, &j);
-			//printf("%d %d \n",a,b );
-			clearScreen();
 			graph_line(a,b);
+			return 0;
 		}
-		else if(strncmp("cuadratic ",&(input[6]),10) == 0) {
+		if(strncmp("cuadratic ",&(input[6]),10) == 0) {
 			int j = 16;
 			a =parseNum(input, &j);
 			j++;
@@ -82,24 +67,50 @@ int parse(char* input) {
 			j++;
 			c = parseNum(input, &j);
 			graph_cuadratic(a,b,c);
+			return 0;
 		}
+		return -1;
 	}
+	if(strncmp(input, "echo ", 5) == 0) {
+		newline();
+		char* phrase = &(input[5]);
+		write(phrase, strlen(phrase));
+		newline2();
+		return 0;
+	}
+	if(strcmp(input, "getTime") == 0) {
+		time();
+		return 0;
+	}
+	if(strcmp(input, "clear") == 0) {
+		 clearScreen();
+		 newline2();
+		 return 0;
+	}
+	if(strcmp(input, "help") == 0) {
+		printHelp();
+		newline2();
+		return 0;
+	}
+	if(strcmp(input, "exit") == 0) {
+		//return 1 es que termina shell()
+		//pero no anda
+		return 1;
+	}
+	return -1;
 }
 
 int parseNum(char* input, int * p) {
 	int a = 0;
 	boolean neg = false;
 	int j = *p;
-	printf("j: %d\n", j);
 	if(input[j] == '-') {
 		neg = true;
 		j++;
 	}
-	printf("ggg %d\n", input[j]);
 	while(input[j]<='9' && input[j]>='0') {
 	 //no se que hacer si pasan mal los argumentos
 		a = 10*a + (input[j] - '0');
-		printf("a: %d\n", a);
 		j++;
 	}
 
@@ -107,4 +118,20 @@ int parseNum(char* input, int * p) {
 		a *= -1;
 	*p = j; //no se si esto updatea p afuera
 	return a;
+}
+
+void printHelp() {
+	printf("\n");
+	printf("graph (line|cuadratic) a b (c) - graphs a line (a*x + b) or a parabola (a*x*x + b*x + c)\n");
+	printf("echo (message) - prints out the message\n");
+	printf("getTime - prints the current time\n");
+	printf("clear - clears the screen\n");
+	printf("help - well.. you know what it does\n");
+	printf("exit - exits the terminal");
+}
+
+void newline2() {
+	newline();
+	write("\n",1);
+	printf("User: ");
 }

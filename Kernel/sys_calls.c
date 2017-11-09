@@ -1,5 +1,6 @@
 #include "include/keyboardDriver.h"
 #include "include/videoDriver.h"
+#include "kernel.h"
 
 extern int getSeconds();
 extern int getMinutes();
@@ -10,12 +11,10 @@ extern int getYear();
 
 typedef void (*fn)(unsigned long rsi, unsigned long rdx, unsigned long rcx, unsigned long r8, unsigned long r9);
 
-static fn sysCalls[7];
+static fn sysCalls[9];
 
 void sys_time(unsigned long sec, unsigned long min, unsigned long hour, unsigned long month, unsigned long year){
-	sec=getSeconds();
-	min=getMinutes();
-	hour=getHours();
+	printHs();
 }
 void sys_clear(unsigned long rsi, unsigned long rdx, unsigned long rcx, unsigned long r8, unsigned long r9){
 	clear();
@@ -32,7 +31,6 @@ void sys_setTerminal(unsigned long size, unsigned long rdx, unsigned long rcx, u
 	setTerminal((int)size);
 }
 void sys_read(unsigned long buffer, unsigned long size, unsigned long rcx, unsigned long r8, unsigned long r9){
-
 	char * buff=(char*)buffer;
 	for (int i = 0; i < size; i++)
 	{

@@ -92,7 +92,7 @@ void newline() {
 	*/
 }
 
-void printChar(char c){
+void printChar(char c) {
 	// Si el puntero del VIDEO sobre pasa los parametros donde esta la pantalla lo posiciona en la ultima linea y mueve todo 1 renglon para arriba
 	if(mousescreen%(WIDTH/CHAR_WIDTH) == 0 && mousescreen != MOUSE_LIMIT - WIDTH) {
 		newline();
@@ -303,6 +303,7 @@ void clear(){
 		//screen[i * 2] = ' ';
 	}
 	mousescreen = MOUSE_LIMIT - WIDTH + terminal;
+	*/
 //	currentScreen = screen + 80*2*24;
 //	currentVideo = VIDEO + WIDTH*3*(HEIGHT-1);
 }
