@@ -228,7 +228,7 @@ void putPixelAt(int color,int xx,int yy) {
 	int x=(index/WIDTH);
 	int y=(index%WIDTH);
 	*/
-	if (yy<WIDTH&&xx<HEIGHT){
+	if (yy<WIDTH&&xx<HEIGHT-CHAR_HEIGHT){
 		unsigned char * pixColor = (*VIDEO) + 3 * ((yy)+(xx)*WIDTH);
 		if (color == 1) { // Tiene que escribir en ese lugar
 			pixColor[0] = letter.blue;
