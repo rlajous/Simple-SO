@@ -12,7 +12,6 @@ void shell(){
     char* user = "User: ";
     setTerminal(strlen(user));
     printf("\n");
-    printf("%s\n", user);
     printHelp();
     // settear el largo de como poronga vamos a llamar al chabon === User:
     while(1) {
