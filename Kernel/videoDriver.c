@@ -302,7 +302,8 @@ void clear(){
 		newline();
 		//screen[i * 2] = ' ';
 	}
-	mousescreen = MOUSE_LIMIT - WIDTH + terminal;
+	mousescreen = MOUSE_LIMIT - WIDTH;
+	mouseindex= MOUSE_LIMIT - WIDTH+terminal;
 //	currentScreen = screen + 80*2*24;
 //	currentVideo = VIDEO + WIDTH*3*(HEIGHT-1);
 }
