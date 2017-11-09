@@ -92,9 +92,11 @@ SECTION .text
 	pushState
 
 	mov rdi, %1 ; pasaje de parametro
+	mov rsi, rsp
 	call exceptionDispatcher
 
 	popState
+	mov qword [rsp], 0x0000000000400000
 	iretq
 %endmacro
 

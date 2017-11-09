@@ -33,6 +33,8 @@ void shell(){
 						return;
 					i=0;
 					buffer[i]=0;
+					printf("%s", user);
+					printf("");
 				}else {
 					buffer[i]=c;
 					i++;
@@ -53,6 +55,7 @@ int parse(char* input) {
 		if(strncmp("line ",&(input[6]),5) == 0) {
 			int j = 11;
 			a = parseNum(input, &j);
+			//graph line -2 -2
 			j++;
 			
 			b = parseNum(input, &j);
@@ -66,6 +69,7 @@ int parse(char* input) {
 			b =  parseNum(input, &j);
 			j++;
 			c = parseNum(input, &j);
+			clearScreen();
 			graph_cuadratic(a,b,c);
 			return 0;
 		}
@@ -117,6 +121,7 @@ int parseNum(char* input, int * p) {
 	if(neg)
 		a *= -1;
 	*p = j; //no se si esto updatea p afuera
+	//printf("value: %d\n", a);
 	return a;
 }
 
