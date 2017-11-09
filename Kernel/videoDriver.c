@@ -298,14 +298,7 @@ void printString(const char * string) {
 }
 
 void clear(){
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 	for (int i = 0; i < HEIGHT/CHAR_HEIGHT; i++){
-		newline();
-=======
-=======
->>>>>>> Stashed changes
-	for(int i=0; i<47; i++)
 		newline();
 	/*mousescreen = 0;
 	for (int i = 0; i < HEIGHT * WIDTH; i++){
