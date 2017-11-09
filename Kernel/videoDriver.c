@@ -298,8 +298,8 @@ void printString(const char * string) {
 }
 
 void clear(){
-	for (int i = 0; i < HEIGHT * WIDTH; i++){
-		printChar(" ");
+	for (int i = 0; i < HEIGHT/CHAR_HEIGHT; i++){
+		newline();
 		//screen[i * 2] = ' ';
 	}
 	mousescreen = MOUSE_LIMIT - WIDTH + terminal;

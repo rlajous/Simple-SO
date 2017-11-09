@@ -50,6 +50,13 @@ int parse(char* input) {
 
 	
 	int strcm = strncmp("graph ",input,6);
+	printf("%d\n",strncmp("clear",input,5));
+	if (strncmp("clear",input,5)==0)
+	{	
+		clearScreen();
+		printf("\n");
+		printf("User: ");
+	}
 	
 	if(strcm == 0) {
 		int a=0,b=0,c=0;
