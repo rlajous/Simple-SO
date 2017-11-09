@@ -298,8 +298,16 @@ void printString(const char * string) {
 }
 
 void clear(){
+<<<<<<< Updated upstream
 	for (int i = 0; i < HEIGHT/CHAR_HEIGHT; i++){
 		newline();
+=======
+	for(int i=0; i<47; i++)
+		newline();
+	/*mousescreen = 0;
+	for (int i = 0; i < HEIGHT * WIDTH; i++){
+		printChar(" ");
+>>>>>>> Stashed changes
 		//screen[i * 2] = ' ';
 	}
 	mousescreen = MOUSE_LIMIT - WIDTH + terminal;
