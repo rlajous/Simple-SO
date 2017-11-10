@@ -3,13 +3,17 @@
 #include "types.h"
 #include <stdarg.h>
 
+char buffer[25*80];
+
 void putchar(char letter){
 	write(&letter, 1);
 }
 
 char getchar(){
 	char letter;
+	do{
 	read(&letter, 1);
+	}while(letter == -1);
 	return letter;
 }
 
@@ -38,9 +42,13 @@ int printf(const char* format, ...){
 					str = (char*) va_arg(args, char*);
 					write(str, strlen(str));
 					index++;
-
+					break;
+				case 'x':
+					num = (int) va_arg(args, int);
+					len = itoa(num, buffer, 16);
+					index ++;
+					break;
 			}
-			index++;
 		}else{
 			putchar(*(index));
 		}
@@ -56,43 +64,108 @@ int scanf(const char* format, ...){
 	char c;
 	boolean neg = false;
 	int* p;
-	int aux, num;
-	c = getchar();
-	while(c != '\n' ){
+	char* pc;
+	int aux = 0, num = 0, len = 0,i = 1;
+	readline(buffer);
+	c = buffer[0];
+	while(c != '\n'){
 		//aux = (char) va_arg(args, int);
-		if(format == '%'){
+		if(*format == '%'){
 			switch(*(format+1)){
 				case 'd':
 					if(c >= '0' && c <= '9' || c == '-'){
-						p = (int*) va_arg(args, int);
+						p = (int*) va_arg(args, int*);
 						if(c == '-'){
 							neg = true;				
 						}
 						do{
-							aux = atoi(c);
+							if(i==25){
+								readline(buffer);
+								i=0;
+							}
+	
+							aux = c - '0';
+							
 							num = (num*10) + aux;
 							*p = num;
+							c = buffer[i];
+							i++;
 						}while(c >= '0' && c <= '9');
 						if(neg == true){
-							num = num - (2*num);
+							num *= -1;
 						}
 						*p = num;
 						format +=2;
+						len++;
 					}else {
 						return 0;
 					}
 					break;
 				case 'c':
-					if( (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')){}
+					if( (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')){
+						if(i==25){
+								readline(buffer);
+								i=0;
+							}
+						pc = (char*) va_arg(args, char*);
+						*pc = c;
+						c = buffer[i]; 
+						i++;
+						format += 2;
+						len++;
+					}else{
+						return 0;
+					}
 					break;	
 
 				case 's':
-					break; 
+					if( (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')){
+						pc = (char*) va_arg(args, char*);
+						do {
+							if(i==25){
+								readline(buffer);
+								i=0;
+							}
+							*(pc + aux) = c;
+							aux++;
+							c = buffer[i];
+							i++;
+						}while((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
+						aux = 0;
+						format += 2;
+						len++;
+					}else{
+						return 0;
+					}
+					break;
 			}
-			format++;
-		}else if(c == format){
 
+		}else if(c == *format){
+			if(i==25){
+				readline(buffer);
+				i=0;
+			}
+			c = buffer[i];
+			i++;
+			format++;
+		}else{
+			return 0;
+		
 		}
 	}
-	return 0;
+	return len;
+}
+
+
+void readline(char* buff){
+	int j;
+	for(j=0; j<25 && (buff[j-1] != '\n') ; j++){
+		do{
+		buff[j] = getchar();
+		printf("%c", buff[j]);
+		if(buffer[j] == '\b'){
+			j -= 2;
+		}
+		}while(buff[j] == -1);
+	}
 }
