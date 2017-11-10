@@ -7,7 +7,7 @@ static void zero_division();
 static void overflow();
 static void invalid_op_code();
 void printStackFrame(uint64_t rsp);
-//void load_exeptions();
+void load_exeptions();
 
 typedef void (* exception)(uint64_t rsp);
 

@@ -1,6 +1,6 @@
 #include "exeption.h"
 
-static exception exceptions[32] = {zero_division, 0, 0, 0, overflow, 0, invalid_op_code};
+static exception exceptions[32];
 
 void exceptionDispatcher(int exceptionID, uint64_t rsp) {
 	if (exceptionID==0||exceptionID==4||exceptionID==6)
@@ -8,6 +8,11 @@ void exceptionDispatcher(int exceptionID, uint64_t rsp) {
 		exceptions[exceptionID](rsp);
 		printStackFrame(rsp);
 	}
+}
+void load_exeptions(){
+	exceptions[0]=zero_division;
+	exceptions[4]=overflow;
+	exceptions[6]=invalid_op_code;
 }
 static void zero_division(uint64_t rsp) {
 	printString("Zero division");

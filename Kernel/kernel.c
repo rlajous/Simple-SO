@@ -93,7 +93,7 @@ int main()
 	load_idt();
 	load_sys();
 	load_vDriver();
-	//load_exeptions();
+	load_exeptions();
 	setFormat();
 	char c;
 	//clear();
