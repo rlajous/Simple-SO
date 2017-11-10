@@ -9,20 +9,6 @@ void exceptionDispatcher(int exceptionID, uint64_t rsp) {
 		printStackFrame(rsp);
 	}
 }
-void load_exeptions(){
-	exceptions[0]=zero_division;
-	exceptions[4]=overflow;
-	exceptions[6]=invalid_op_code;
-}
-static void zero_division(uint64_t rsp) {
-	printString("Zero division");
-}
-static void overflow(uint64_t rsp) {
-	printString("Overflow exception: \n");
-}
-static void invalid_op_code(uint64_t rsp) {
-	printString("Invalid opcode exception: \n");
-}
 void printStackFrame(uint64_t rsp) {
 
 	exceptionStackFrame* exceptionInfo = (uint64_t*) rsp;
@@ -46,4 +32,18 @@ void printStackFrame(uint64_t rsp) {
 	printString("Stack segment: ");
 	printHex(exceptionInfo->stack_segment);
 	printChar('\n');
+}
+void load_exeptions(){
+	exceptions[0]=zero_division;
+	exceptions[4]=overflow;
+	exceptions[6]=invalid_op_code;
+}
+static void zero_division(uint64_t rsp) {
+	printString("Zero division");
+}
+static void overflow(uint64_t rsp) {
+	printString("Overflow exception: \n");
+}
+static void invalid_op_code(uint64_t rsp) {
+	printString("Invalid opcode exception: \n");
 }
