@@ -1,15 +1,50 @@
-
+#include "exeption.h"
 #define ZERO_EXCEPTION_ID 0
 
 static void zero_division();
 
-void exceptionDispatcher(int exception) {
-	if (exception == ZERO_EXCEPTION_ID)
-		zero_division();
+static const exception exceptions[] = {zero_division, 0, 0, 0, overflow, 0, invalidOpCode};
+
+void exceptionDispatcher(int exceptionID, uint64_t rsp) {
+	exceptions[exceptionID](rsp);
 }
 
-static void zero_division() {
-	//newline();
-	printString("zero division");
+static void zero_division(rsp) {
+	printString("zero division  \n");
+	printExceptionStackFrame(rsp); 
+}
+static void overflow(rsp) {
+	printString("Overflow exception: \n");
+	printExceptionStackFrame(rsp);
+}
 
+static void invalidOpCode(rsp) {
+	printString("Invalid opcode exception: \n");
+	printExceptionStackFrame(rsp);
+}
+
+void printExceptionStackFrame(uint64_t rsp) {
+
+	exceptionStackFrame* exceptionInfo = (uint64_t*) rsp;
+
+	printString("Instruction pointer: ");
+	printHex(exceptionInfo->instruction_pointer);
+	//printChar('x');
+	printChar('\n');
+
+	printString("Code segment: ");
+	printHex(exceptionInfo->code_segment);
+	printChar('\n');
+
+	printString("CPU flags: ");
+	printHex(exceptionInfo->cpu_flags);
+	printChar('\n');
+
+	printString("Stack pointer: ");
+	printHex(exceptionInfo->stack_pointer);
+	printChar('\n');
+
+	printString("Stack segment: ");
+	printHex(exceptionInfo->stack_segment);
+	printChar('\n');
 }

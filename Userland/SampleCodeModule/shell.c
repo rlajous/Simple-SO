@@ -8,11 +8,20 @@
 void shell(){
     char buffer[25*80];
     int i = 0, ret = 0;
+    static int flag=1;
     char c,d;
     char* user = "User: ";
     setTerminal(strlen(user));
-    printf("\n");
-    printHelp();
+    //printf("\n");
+    if (flag)
+    {
+    	printf("\n");
+    	printHelp();
+    	flag=0;
+    }else{
+    	newline2();
+    }
+    //printHelp();
     // settear el largo de como poronga vamos a llamar al chabon === User:
     while(1) {
    	 if ((c = getchar()) != EOF) {
@@ -95,6 +104,8 @@ int parse(char* input) {
    	 //return 1 es que termina shell()
    	 //pero no anda
    	 return 1;
+    }else if(strcmp(input, "cero") == 0) {
+   	 printf("%d\n",4/0);
     }else{
     	printf("Wrong command\n");
     	printf("%s\n", "User: ");

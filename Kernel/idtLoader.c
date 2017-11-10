@@ -24,7 +24,10 @@ static void setup_IDT_entry (int index, uint64_t offset);
 
 void load_idt() {
 	_cli();
-
+  
+  setup_IDT_entry (0x00, (uint64_t)&_exception0Handler);
+  setup_IDT_entry (0x04, (uint64_t)&_exception4Handler);
+  setup_IDT_entry (0x06, (uint64_t)&_exception6Handler);
 	setup_IDT_entry (0x20, (uint64_t)&_irq00Handler);
   setup_IDT_entry (0x21, (uint64_t)&_irq01Handler);
 	setup_IDT_entry (0x00, (uint64_t)&_exception0Handler);
