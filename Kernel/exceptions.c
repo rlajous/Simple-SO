@@ -1,35 +1,29 @@
 #include "exeption.h"
-#define ZERO_EXCEPTION_ID 0
 
-static void zero_division();
-
-static const exception exceptions[] = {zero_division, 0, 0, 0, overflow, 0, invalidOpCode};
+static exception exceptions[32] = {zero_division, 0, 0, 0, overflow, 0, invalid_op_code};
 
 void exceptionDispatcher(int exceptionID, uint64_t rsp) {
-	exceptions[exceptionID](rsp);
+	if (exceptionID==0||exceptionID==4||exceptionID==6)
+	{
+		exceptions[exceptionID](rsp);
+		printStackFrame(rsp);
+	}
 }
-
-static void zero_division(rsp) {
-	printString("zero division  \n");
-	printExceptionStackFrame(rsp); 
+static void zero_division(uint64_t rsp) {
+	printString("Zero division");
 }
-static void overflow(rsp) {
+static void overflow(uint64_t rsp) {
 	printString("Overflow exception: \n");
-	printExceptionStackFrame(rsp);
 }
-
-static void invalidOpCode(rsp) {
+static void invalid_op_code(uint64_t rsp) {
 	printString("Invalid opcode exception: \n");
-	printExceptionStackFrame(rsp);
 }
-
-void printExceptionStackFrame(uint64_t rsp) {
+void printStackFrame(uint64_t rsp) {
 
 	exceptionStackFrame* exceptionInfo = (uint64_t*) rsp;
 
 	printString("Instruction pointer: ");
 	printHex(exceptionInfo->instruction_pointer);
-	//printChar('x');
 	printChar('\n');
 
 	printString("Code segment: ");

@@ -8,6 +8,7 @@
 #include <time.h>
 #include <videoDriver.h>
 #include <keyboardDriver.h>
+#include "exeption.h"
 
 extern uint8_t text;
 extern uint8_t rodata;
@@ -92,6 +93,7 @@ int main()
 	load_idt();
 	load_sys();
 	load_vDriver();
+	//load_exeptions();
 	setFormat();
 	char c;
 	//clear();
