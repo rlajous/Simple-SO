@@ -38,7 +38,7 @@ void shell(){
    				 write(&c,1);
    				 buffer[i]=0;
    				 ret = parse(buffer);
-   				 if(ret == 2)
+   				 if(ret == 1)
    					 return;
    				 i=0;
    				 buffer[i]=0;
