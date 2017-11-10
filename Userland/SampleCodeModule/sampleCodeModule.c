@@ -11,22 +11,22 @@ int main() {
 	//char buffer[500]={'0'};
 	//Test if BSS is properly set up
 	setVideo();
-	//shell();
+	shell();
 
-	int a, len;
-	char b;
-	char c[200];
-
-	printf("go on:\n");
-
-	len = scanf("%d, %c", &a, &b);
-
-	if(len != 0){
-	
-	printf("%d, %c\n", a, b);
-	}else{
-		printf("no cumplis\n");
-	}
+//	int a, len;
+//	char b;
+//	char c[200];
+//
+//	printf("go on:\n");
+//
+//	len = scanf("%s, %c", c, &b);
+//
+//	if(len != 0){
+//	
+//	printf("%s, %c and lenght %d\n", c, b, len);
+//	}else{
+//		printf("no cumplis\n");
+// }
 
 
 	//printGraphic(1);

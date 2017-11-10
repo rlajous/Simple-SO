@@ -68,22 +68,18 @@ int scanf(const char* format, ...){
 	int aux = 0, num = 0, len = 0,i = 1;
 	readline(buffer);
 	c = buffer[0];
-	while(c != '\n'){
+	while(c != '\n' ){
 		//aux = (char) va_arg(args, int);
 		if(*format == '%'){
 			switch(*(format+1)){
 				case 'd':
-					if(c >= '0' && c <= '9' || c == '-'){
+					if((c >= '0' && c <= '9') || c == '-'){
 						p = (int*) va_arg(args, int*);
 						if(c == '-'){
 							neg = true;				
 						}
 						do{
-							if(i==25){
-								readline(buffer);
-								i=0;
-							}
-	
+							
 							aux = c - '0';
 							
 							num = (num*10) + aux;
@@ -98,15 +94,11 @@ int scanf(const char* format, ...){
 						format +=2;
 						len++;
 					}else {
-						return 0;
+						return len;
 					}
 					break;
 				case 'c':
-					if( (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')){
-						if(i==25){
-								readline(buffer);
-								i=0;
-							}
+					if( (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')){
 						pc = (char*) va_arg(args, char*);
 						*pc = c;
 						c = buffer[i]; 
@@ -114,42 +106,34 @@ int scanf(const char* format, ...){
 						format += 2;
 						len++;
 					}else{
-						return 0;
+						return len;
 					}
 					break;	
 
 				case 's':
-					if( (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')){
+					if( (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9')){
 						pc = (char*) va_arg(args, char*);
 						do {
-							if(i==25){
-								readline(buffer);
-								i=0;
-							}
 							*(pc + aux) = c;
 							aux++;
 							c = buffer[i];
 							i++;
-						}while((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
+						}while((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9'));
 						aux = 0;
 						format += 2;
 						len++;
 					}else{
-						return 0;
+						return len;
 					}
 					break;
 			}
 
 		}else if(c == *format){
-			if(i==25){
-				readline(buffer);
-				i=0;
-			}
 			c = buffer[i];
 			i++;
 			format++;
 		}else{
-			return 0;
+			return len;
 		
 		}
 	}
@@ -159,11 +143,13 @@ int scanf(const char* format, ...){
 
 void readline(char* buff){
 	int j;
-	for(j=0; j<25 && (buff[j-1] != '\n') ; j++){
+	for(j=0; (buff[j-1] != '\n') ; j++){
 		do{
 		buff[j] = getchar();
 		printf("%c", buff[j]);
 		if(buffer[j] == '\b'){
+			buff[j] = 0;
+			buff[j-1] = 0;
 			j -= 2;
 		}
 		}while(buff[j] == -1);
