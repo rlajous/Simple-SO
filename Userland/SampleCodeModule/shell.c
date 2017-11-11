@@ -29,13 +29,13 @@ void shell(){
    			 if(i != 0) {
    				 i--;
    				 buffer[i]=0;
-   				 write(&c,1);
+           putchar(c);
    				 backspace();
    			 }
    		 }
    		 else {
    			 if(c=='\n') {
-   				 write(&c,1);
+   				 putchar(c);
    				 buffer[i]=0;
    				 ret = parse(buffer);
    				 if(ret == 1)
@@ -46,7 +46,7 @@ void shell(){
    				 buffer[i]=c;
    				 i++;
    				 buffer[i]=0;
-   				 write(&c,1);    
+   				 putchar(c);
    			 }
    		 }
    	 }
@@ -84,8 +84,7 @@ int parse(char* input) {
    	 return -1;
     }else if(strncmp(input, "echo ", 5) == 0) {
 		char* phrase = &(input[5]);
-		write(phrase, strlen(phrase));
-		newline2();
+    printf("%s\n", phrase);
    		return 0;
     }else if(strcmp(input, "getTime") == 0) {
     	int sec,min,hs,month,year=0;
@@ -105,10 +104,10 @@ int parse(char* input) {
    	 //pero no anda
    	 return 1;
     }else if(strcmp(input, "cero") == 0) {
-   	 printf("%d\n",4/0);
+   	  printf("%d\n",4/0);
     }else{
     	printf("Wrong command\n");
-    	printf("%s\n", "User: ");
+    	printf("%s", "User: ");
     }
     return -1;
 }
@@ -146,6 +145,6 @@ void printHelp() {
 
 void newline2() {
     //newline();
-    write("\n",1);
-    printf("User: ");
+    //write("\n",1);
+    printf("\nUser: ");
 }
