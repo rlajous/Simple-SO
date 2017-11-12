@@ -13,6 +13,7 @@ int main() {
 	setVideo();
 	shell();
 
+
 //	int a, len;
 //	char b;
 //	char c[200];
@@ -27,6 +28,24 @@ int main() {
 //	}else{
 //		printf("no cumplis\n");
 // }
+
+
+	/*
+	int a, len;
+	char b;
+	char c[200];
+
+	printf("go on:\n");
+
+	len = scanf("%d, %c", &a, &b);
+
+	if(len != 0){
+	
+	printf("%d, %c\n", a, b);
+	}else{
+		printf("no cumplis\n");
+	}
+	*/
 
 
 	//printGraphic(1);

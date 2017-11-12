@@ -39,7 +39,7 @@ void load_exeptions(){
 	exceptions[6]=invalid_op_code;
 }
 static void zero_division(uint64_t rsp) {
-	printString("Zero division");
+	printString("Zero division: \n");
 }
 static void overflow(uint64_t rsp) {
 	printString("Overflow exception: \n");

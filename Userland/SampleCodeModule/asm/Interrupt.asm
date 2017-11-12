@@ -1,4 +1,5 @@
 GLOBAL int_80h
+GLOBAL invalid_op_code
 
 section .text
 
@@ -47,4 +48,10 @@ int_80h:
     int 80h
 
     popState
+    ret
+
+;https://xem.github.io/minix86/manual/intel-x86-and-64-manual-vol3/o_fe12b1e2a880e0ce-212.html
+
+invalid_op_code:
+    ud2
     ret

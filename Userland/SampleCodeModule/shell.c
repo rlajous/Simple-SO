@@ -4,6 +4,9 @@
 #include "stdlib.h"
 #include "stdio.h"
 #include <graph.h>
+#include "interrupt.h"
+
+void invalid_op_code();
 
 void shell(){
     char buffer[25*80];
@@ -104,7 +107,11 @@ int parse(char* input) {
    	 //pero no anda
    	 return 1;
     }else if(strcmp(input, "cero") == 0) {
-   	  printf("%d\n",4/0);
+   		printf("%d\n",4/0);
+    	//invalid_op_code();
+    }else if(strcmp(input, "invalidOpCode") == 0) {
+   		//printf("%d\n",4/0);
+    	invalid_op_code();
     }else{
     	printf("Wrong command\n");
     	printf("%s", "User: ");
@@ -138,6 +145,8 @@ void printHelp() {
     printf("echo (message) - prints out the message\n");
     printf("getTime - prints the current time\n");
     printf("clear - clears the screen\n");
+    printf("cero - makes an divition by cero exeption\n");
+    printf("invalidOpCode - makes an invalid operation exeption\n");
     printf("help - display available commands\n");
     printf("exit - exits the terminal");
     newline2();
