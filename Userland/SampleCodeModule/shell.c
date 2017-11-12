@@ -92,7 +92,7 @@ int parse(char* input) {
     }else if(strcmp(input, "getTime") == 0) {
     	int sec,min,hs,month,year=0;
    		time(&sec,&min,&hs,&month,&year);
-   		printf("%d : %d : %d ",hs,min,sec);
+   		printf("%d : %d : %d ",hs-3,min,sec);
    		newline2();
    		return 0;
     }else if(strcmp(input, "clear") == 0) {
@@ -143,7 +143,7 @@ int parseNum(char* input, int * p) {
 void printHelp() {
     printf("graph (line|cuadratic) a b (c) - graphs a line (a*x + b) or a parabola (a*x*x + b*x + c)\n");
     printf("echo (message) - prints out the message\n");
-    printf("getTime - prints the current time\n");
+    printf("getTime - prints the current time in argentina\n");
     printf("clear - clears the screen\n");
     printf("cero - makes an divition by cero exeption\n");
     printf("invalidOpCode - makes an invalid operation exeption\n");
