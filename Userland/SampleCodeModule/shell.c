@@ -61,7 +61,7 @@ int parse(char* input) {
     if(strncmp("graph ",input,6) == 0) {
    	 clearScreen();
    	 printf("\n");
-   	 printf("%s\n", "User: ");
+   	 printf("%s", "User: ");
    	 int a=0,b=0,c=0;
    	 if(strncmp("line ",&(input[6]),5) == 0) {
    		 int j = 11;

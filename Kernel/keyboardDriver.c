@@ -73,7 +73,7 @@ void keyboard_handler()
     *  set, that means that a key has just been released */
     if (scancode & 0x80)
     {
-    		if(scancode==0x2A || scancode==0XAA){
+    		if(scancode==0x2A || scancode==0XAA||scancode==0x36 || scancode==0xB6){
         		shift=!shift;
 				return;
 			}
@@ -109,7 +109,7 @@ void keyboard_handler()
     	}
     	
     	
-        if(scancode==0x2A || scancode==0XAA||scancode==0x36){
+        if(scancode==0x2A || scancode==0XAA||scancode==0x36 || scancode==0xB6){
         	shift=!shift;
 			return;
 		}else if(scancode==0x3A){
