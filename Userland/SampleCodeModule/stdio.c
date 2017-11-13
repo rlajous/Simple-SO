@@ -25,6 +25,8 @@ int printf(const char* format, ...){
 	char buffer[12];
 	char* str;
 	int len, num;
+	float fnum;
+
 	while(*(index) != 0){
 		if(*(index) == '%'){
 			switch(*(index+1)){
@@ -48,6 +50,12 @@ int printf(const char* format, ...){
 					len = itoa(num, buffer, 16);
 					index ++;
 					break;
+				case 'f':
+					fnum = (float) va_arg(args, float);
+					len = ftoa(fnum, buffer);
+					write(buffer, len);
+					index++;
+					break;
 			}
 		}else{
 			putchar(*(index));
@@ -65,6 +73,7 @@ int scanf(const char* format, ...){
 	boolean neg = false;
 	int* p;
 	char* pc;
+	float* pf;
 	int aux = 0, num = 0, len = 0,i = 1;
 	readline(buffer);
 	c = buffer[0];
@@ -78,6 +87,7 @@ int scanf(const char* format, ...){
 						if(c == '-'){
 							neg = true;				
 						}
+
 						do{
 							
 							aux = c - '0';
@@ -87,10 +97,11 @@ int scanf(const char* format, ...){
 							c = buffer[i];
 							i++;
 						}while(c >= '0' && c <= '9');
+
 						if(neg == true){
-							num *= -1;
+							*p *= -1;
 						}
-						*p = num;
+
 						format +=2;
 						len++;
 					}else {
@@ -126,7 +137,40 @@ int scanf(const char* format, ...){
 						return len;
 					}
 					break;
-			}
+
+//				case 'f':
+//					if((c >= '0' && c <= '9') || c == '-'){
+//						pf = (float*) va_arg(args, float*);
+//						if(c == '-'){
+//							neg = true;				
+//						}
+//
+//						do{
+//							
+//							aux = c - '0';
+//							
+//							num = (num*10) + aux;
+//							
+//							c = buffer[i];
+//							i++;
+//						}while(c >= '0' && c <= '9');
+//
+//						*pf = (float) num;
+//
+//						if(c == '.'){
+///							i++;
+	//						c = buffer[i];
+	//						num = 0;
+	//						while(c >= '0' && c <= '9'){
+	//							aux = c - '0';
+	//							num = (num*10) + aux;
+	///							c = buffer[i];
+		//						i++;
+		//					}
+		//				}
+		//			}
+//
+//			}
 
 		}else if(c == *format){
 			c = buffer[i];
