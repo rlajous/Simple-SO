@@ -148,7 +148,7 @@ void keyboard_handler()
 				buffer[bufferindex]=key-'a'+'A';
 				bufferindex=(bufferindex+1)%BUFFER_SIZE;
 			}
-			if (key=='\n')
+			if (key=='\n'||key=='\b')
             {
                 buffer[bufferindex]=key;
                 bufferindex=(bufferindex+1)%BUFFER_SIZE;

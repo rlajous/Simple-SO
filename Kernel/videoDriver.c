@@ -79,6 +79,7 @@ void backspace(){
 }
 
 void newline() {
+	putCharAt(buffer[mousescreen],mousescreen);
 	mousescreen += WIDTH -mousescreen%WIDTH;
 	if(mousescreen>=MOUSE_LIMIT){
 		scrollUp();
