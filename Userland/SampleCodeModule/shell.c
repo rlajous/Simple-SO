@@ -87,7 +87,8 @@ int parse(char* input) {
    	 return -1;
     }else if(strncmp(input, "echo ", 5) == 0) {
 		char* phrase = &(input[5]);
-    printf("%s\n", phrase);
+    	printf("%s\n", phrase);
+    	printf("%s", "User: ");
    		return 0;
     }else if(strcmp(input, "getTime") == 0) {
     	int sec,min,hs,month,year=0;
