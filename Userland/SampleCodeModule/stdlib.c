@@ -1,4 +1,5 @@
 #include "types.h"
+#include "stdlib.h"
 //from naiveconsole
 // int to string
 int itoa(int value, char* buffer, int base){
@@ -44,41 +45,11 @@ char *p = buffer;
 	return digits;
 }
 
-int ftoa(float value, char* buffer){
-char *p = buffer;
-	char *p1, *p2;
-	int digits = 0;
-
-	if(value < 0){
-		value = -value;
-		*p = '-';
-		p++;
-		digits++;
-	}
-
-	int intpart = (int)value;
-	float floatpart = value - (float)intpart;
-
-	digits = itoa(intpart, p, 10);
-	// Terminate string in buffer.
-	p = buffer + digits;
-
-	*p = '.';
-	p++;
-
-	// to handle cases like 233.007
-        floatpart = floatpart * 100000;
- 
-        digits += atoi((int)floatpart, p, 10);
-
-	return digits;
-}
-
 //string to int
 int atoi(char c){
 	int a = 0;
 	if(c >= '0' && c >= '9'){
-		a = c - '0';
+		a =(int) (c - '0');
 		return a;
 	}
 	return -1;

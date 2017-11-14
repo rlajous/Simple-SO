@@ -137,41 +137,7 @@ int scanf(const char* format, ...){
 						return len;
 					}
 					break;
-
-//				case 'f':
-//					if((c >= '0' && c <= '9') || c == '-'){
-//						pf = (float*) va_arg(args, float*);
-//						if(c == '-'){
-//							neg = true;				
-//						}
-//
-//						do{
-//							
-//							aux = c - '0';
-//							
-//							num = (num*10) + aux;
-//							
-//							c = buffer[i];
-//							i++;
-//						}while(c >= '0' && c <= '9');
-//
-//						*pf = (float) num;
-//
-//						if(c == '.'){
-///							i++;
-	//						c = buffer[i];
-	//						num = 0;
-	//						while(c >= '0' && c <= '9'){
-	//							aux = c - '0';
-	//							num = (num*10) + aux;
-	///							c = buffer[i];
-		//						i++;
-		//					}
-		//				}
-		//			}
-//
-//			}
-
+				}
 		}else if(c == *format){
 			c = buffer[i];
 			i++;

@@ -56,6 +56,45 @@ void shell(){
     }
 }
 
+double parseNum(char* input, int * p) {
+    double a = 0;
+    boolean neg = false;
+    
+    //marca si estoy parseando decimales
+    boolean decimals = false;
+    int decimalIndex = 1;
+    double decimal = 0;
+    int j = *p;
+    if(input[j] == '-') {
+     neg = true;
+     j++;
+    }
+    while((input[j]<='9' && input[j]>='0') || input[j]==',') {
+     //no se que hacer si pasan mal los argumentos
+     if(input[j] == ',') {
+      decimals = true;
+     }
+     else if(decimals == false) {
+      a = 10*a + (input[j] - '0');
+     }
+     else {
+      decimal = input[j] - '0';
+      for(int i=0; i<decimalIndex; i++){
+       decimal = decimal / 10;
+      }
+      decimalIndex++;
+      a = a + decimal;
+     }
+     j++;
+    }
+
+    if(neg)
+     a = a * (-1);
+    *p = j;
+    //printf("value: %d\n", a);
+    return a;
+}
+
 //retorna 0 si no hay error
 int parse(char* input) {    
     if(strncmp("graph ",input,6) == 0) {
@@ -120,44 +159,6 @@ int parse(char* input) {
     return -1;
 }
 
-double parseNum(char* input, int * p) {
-    double a = 0;
-    boolean neg = false;
-    
-    //marca si estoy parseando decimales
-    boolean decimals = false;
-    int decimalIndex = 1;
-    double decimal = 0;
-    int j = *p;
-    if(input[j] == '-') {
-   	 neg = true;
-   	 j++;
-    }
-    while((input[j]<='9' && input[j]>='0') || input[j]==',') {
-     //no se que hacer si pasan mal los argumentos
-     if(input[j] == ',') {
-      decimals = true;
-     }
-     else if(decimals == false) {
-   	  a = 10*a + (input[j] - '0');
-     }
-     else {
-      decimal = input[j] - '0';
-      for(int i=0; i<decimalIndex; i++){
-       decimal = decimal / 10;
-      }
-      decimalIndex++;
-      a = a + decimal;
-     }
-     j++;
-    }
-
-    if(neg)
-   	 a = a * (-1);
-    *p = j;
-    //printf("value: %d\n", a);
-    return a;
-}
 
 void printHelp() {
     printf("graph (line|cuadratic) a b (c) - graphs a line (a*x + b) or a parabola (a*x*x + b*x + c)\n");
