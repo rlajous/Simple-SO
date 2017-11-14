@@ -155,7 +155,7 @@ void cursorLeft(){
 }
 void cursorRight(){
 	if (mousescreen < mouseindex)
-	{	
+	{
 		mousescreen++;
 		putCharAt(buffer[mousescreen-1],mousescreen-1);
 	}
@@ -248,7 +248,7 @@ void printPosition(uint8_t x,uint8_t y,uint8_t flag){
 	uint8_t flag2 = 0;
 	if(!flag){
 		cleanBack();
-	}	
+	}
 	mouse = (VIDEO + x*2*WIDTH + y*2+1);
 	mousescreen = x*2*WIDTH + y*2+1;
 	if(flag){
@@ -266,8 +266,8 @@ void printPosition(uint8_t x,uint8_t y,uint8_t flag){
 				screen[x] = 0X07;
 		}
 		updateScreen();
-	}	
-	else{	
+	}
+	else{
 		*mouse = 0X9F;
 	}
 
@@ -317,7 +317,7 @@ static uint32_t uintToBase(uint64_t value, char * buffer, uint32_t base){
 	do{
 		uint32_t remainder = value % base;
 		*p++ = (remainder < 10) ? remainder + '0' : remainder + 'A' - 10;
-		printChar(*(p-1));
+		//printChar(*(p-1));
 		digits++;
 	}	while (value /= base);
 

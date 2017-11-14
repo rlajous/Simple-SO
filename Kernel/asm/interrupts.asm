@@ -5,6 +5,7 @@ GLOBAL picMasterMask
 GLOBAL picSlaveMask
 GLOBAL haltcpu
 GLOBAL _hlt
+GLOBAL printRegisters
 
 GLOBAL _int80Handler
 GLOBAL _irq00Handler
@@ -23,6 +24,8 @@ GLOBAL _exception0Handler
 EXTERN irqDispatcher
 EXTERN exceptionDispatcher
 EXTERN sys_handler
+EXTERN printRegister
+EXTERN printString
 
 SECTION .text
 
@@ -92,17 +95,50 @@ SECTION .text
 
 
 %macro exceptionHandler 1
-	;pushState
+	mov [aux], rsp
+	pushState
 
 	mov rdi, %1 ; pasaje de parametro
-	mov rsi, rsp
+	mov rsi, [aux]
 	call exceptionDispatcher
 
-	;popState
+	mov rax, [aux]
+	call printRegisters
+
+	mov rsp, [aux]
 	mov qword [rsp], 0x0000000000400000
+
 	iretq
 %endmacro
 
+
+;Recibe en rax el rsp desde donde se pushearon los registros (Similar al implementado por pure64)
+printRegisters:
+	pushState
+	mov rbx, 15
+	mov r15, rax
+	sub r15, 8
+
+	.loop:
+		cmp rbx, 0
+		jz .finish
+		mov rdi, s0
+		mov rax, 15
+		sub rax, rbx
+		mov rcx, 4 ; cada string tiene 4
+		mul rcx
+		add rdi, rax
+		call printString
+		mov rdi, [r15]
+		mov rsi, rbx
+		call printRegister
+		sub r15, 8
+		dec rbx
+		jmp .loop
+
+	.finish:
+		popState
+		ret
 
 _hlt:
 	sti
@@ -183,7 +219,22 @@ haltcpu:
 	hlt
 	ret
 
-
+SECTION .data
+	s0: db "RAX", 0
+	s1: db "RBX", 0
+	s2: db "RCX", 0
+	s3: db "RDX", 0
+	s4: db "RBP", 0
+	s5: db "RDI", 0
+	s6: db "RSI", 0
+	s7: db "R8", 0, 0
+	s8: db "R9", 0, 0
+	s9: db "R10", 0
+	s10: db "R11", 0
+	s11: db "R12", 0
+	s12: db "R13", 0
+	s13: db "R14", 0
+	s14: db "R15", 0
 
 SECTION .bss
 	aux resq 1

@@ -9,6 +9,15 @@ void exceptionDispatcher(int exceptionID, uint64_t rsp) {
 		printStackFrame(rsp);
 	}
 }
+
+void printRegister(uint64_t value, uint64_t num) {
+	printString(": 0x");
+	printHex(value);
+	printString("  ");
+	if(num % 4 == 0)
+		printChar('\n');
+}
+
 void printStackFrame(uint64_t rsp) {
 
 	exceptionStackFrame* exceptionInfo = (uint64_t*) rsp;
@@ -32,6 +41,8 @@ void printStackFrame(uint64_t rsp) {
 	printString("Stack segment: ");
 	printHex(exceptionInfo->stack_segment);
 	printChar('\n');
+
+	printString("Registers: \n");
 }
 void load_exeptions(){
 	exceptions[0]=zero_division;
