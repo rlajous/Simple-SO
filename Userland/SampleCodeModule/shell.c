@@ -135,24 +135,25 @@ double parseNum(char* input, int * p) {
     }
     while((input[j]<='9' && input[j]>='0') || input[j]==',') {
      //no se que hacer si pasan mal los argumentos
-     if(input[j] == ',')
+     if(input[j] == ',') {
       decimals = true;
-     else if(!decimals) {
+     }
+     else if(decimals == false) {
    	  a = 10*a + (input[j] - '0');
      }
      else {
       decimal = input[j] - '0';
       for(int i=0; i<decimalIndex; i++){
-       decimal /= 10;
+       decimal = decimal / 10;
       }
       decimalIndex++;
-      a += decimal;
+      a = a + decimal;
      }
      j++;
     }
 
     if(neg)
-   	 a *= -1;
+   	 a = a * (-1);
     *p = j;
     //printf("value: %d\n", a);
     return a;
