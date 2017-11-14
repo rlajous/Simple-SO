@@ -62,7 +62,7 @@ int parse(char* input) {
    	 clearScreen();
    	 printf("\n");
    	 printf("%s", "User: ");
-   	 int a=0,b=0,c=0;
+   	 double a=0,b=0,c=0;
    	 if(strncmp("line ",&(input[6]),5) == 0) {
    		 int j = 11;
    		 a = parseNum(input, &j);
@@ -120,23 +120,40 @@ int parse(char* input) {
     return -1;
 }
 
-int parseNum(char* input, int * p) {
-    int a = 0;
+double parseNum(char* input, int * p) {
+    double a = 0;
     boolean neg = false;
+    
+    //marca si estoy parseando decimales
+    boolean decimals = false;
+    int decimalIndex = 1;
+    double decimal = 0;
     int j = *p;
     if(input[j] == '-') {
    	 neg = true;
    	 j++;
     }
-    while(input[j]<='9' && input[j]>='0') {
+    while((input[j]<='9' && input[j]>='0') || input[j]==',') {
      //no se que hacer si pasan mal los argumentos
-   	 a = 10*a + (input[j] - '0');
-   	 j++;
+     if(input[j] == ',')
+      decimals = true;
+     else if(!decimals) {
+   	  a = 10*a + (input[j] - '0');
+     }
+     else {
+      decimal = input[j] - '0';
+      for(int i=0; i<decimalIndex; i++){
+       decimal /= 10;
+      }
+      decimalIndex++;
+      a += decimal;
+     }
+     j++;
     }
 
     if(neg)
    	 a *= -1;
-    *p = j; //no se si esto updatea p afuera
+    *p = j;
     //printf("value: %d\n", a);
     return a;
 }
