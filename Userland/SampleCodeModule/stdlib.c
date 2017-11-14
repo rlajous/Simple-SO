@@ -77,8 +77,6 @@ int strcmp(char* str1, char* str2) {
 
 
 
-
-
 int strncmp(char* str1, char* str2, int n) {
 	int i = 0;
 	int strlen1 = strlen(str1);

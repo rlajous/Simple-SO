@@ -5,6 +5,8 @@
 
 char buffer[25*80];
 
+void readline(char* buff);
+
 void putchar(char letter){
 	write(&letter, 1);
 }
@@ -25,7 +27,6 @@ int printf(const char* format, ...){
 	char buffer[12];
 	char* str;
 	int len, num;
-	float fnum;
 
 	while(*(index) != 0){
 		if(*(index) == '%'){
@@ -50,12 +51,6 @@ int printf(const char* format, ...){
 					len = itoa(num, buffer, 16);
 					index ++;
 					break;
-				case 'f':
-					fnum = (float) va_arg(args, float);
-					len = ftoa(fnum, buffer);
-					write(buffer, len);
-					index++;
-					break;
 			}
 		}else{
 			putchar(*(index));
@@ -73,7 +68,6 @@ int scanf(const char* format, ...){
 	boolean neg = false;
 	int* p;
 	char* pc;
-	float* pf;
 	int aux = 0, num = 0, len = 0,i = 1;
 	readline(buffer);
 	c = buffer[0];
@@ -149,7 +143,6 @@ int scanf(const char* format, ...){
 	}
 	return len;
 }
-
 
 void readline(char* buff){
 	int j;
